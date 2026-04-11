@@ -42,7 +42,8 @@ void main() {
 }`
 
 var (
-	winW, winH int = 800, 600
+	winW, winH  int     = 800, 600
+	camDist     float32 = 2.5 // scroll to zoom
 )
 
 func main() {
@@ -77,6 +78,15 @@ func main() {
 	win.SetFramebufferSizeCallback(func(w *glfw.Window, width, height int) {
 		winW, winH = width, height
 		gl.Viewport(0, 0, int32(width), int32(height))
+	})
+	win.SetScrollCallback(func(w *glfw.Window, xoff, yoff float64) {
+		camDist -= float32(yoff) * 0.15
+		if camDist < 1.1 {
+			camDist = 1.1 // don't clip inside the sphere
+		}
+		if camDist > 20 {
+			camDist = 20
+		}
 	})
 	winW, winH = win.GetFramebufferSize()
 	gl.Viewport(0, 0, int32(winW), int32(winH))
@@ -132,7 +142,7 @@ func main() {
 
 		t := float32(glfw.GetTime())
 		model := rotY(t * 0.5)
-		view  := lookAt(0, 0.8, 2.5, 0, 0, 0, 0, 1, 0)
+		view  := lookAt(0, camDist*0.32, camDist, 0, 0, 0, 0, 1, 0)
 		proj  := perspective(toRad(45), float32(winW)/float32(winH), 0.1, 100)
 		mvp   := matMul(proj, matMul(view, model))
 
