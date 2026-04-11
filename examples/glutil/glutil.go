@@ -12,6 +12,10 @@ import (
 )
 
 // ── Shader helpers ────────────────────────────────────────────────────────────
+//
+// NOTE: BuildProgram and CompileShader are tied to the v2.1/gl import below.
+// Examples targeting a different GL version (v3.3, v4.x) should define their
+// own local equivalents using the appropriate GL package.
 
 // BuildProgram compiles vs and fs then links them into a program.
 func BuildProgram(vs, fs string) (uint32, error) {

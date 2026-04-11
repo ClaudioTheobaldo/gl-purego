@@ -27,6 +27,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"math"
 	"unsafe"
@@ -185,6 +186,58 @@ func hsvToRGB(h, s, v float64) (float32, float32, float32) {
 	}
 }
 
+// ── shader helpers (v3.3/gl) ──────────────────────────────────────────────────
+// glutil.BuildProgram hardcodes v2.1/gl internally; for core-profile examples
+// we define local equivalents that use this file's v3.3/gl import instead.
+
+func buildProgram(vs, fs string) (uint32, error) {
+	v, err := compileShader(vs, gl.VERTEX_SHADER)
+	if err != nil {
+		return 0, fmt.Errorf("vertex: %w", err)
+	}
+	f, err := compileShader(fs, gl.FRAGMENT_SHADER)
+	if err != nil {
+		gl.DeleteShader(v)
+		return 0, fmt.Errorf("fragment: %w", err)
+	}
+	p := gl.CreateProgram()
+	gl.AttachShader(p, v)
+	gl.AttachShader(p, f)
+	gl.LinkProgram(p)
+	gl.DeleteShader(v)
+	gl.DeleteShader(f)
+	var status int32
+	gl.GetProgramiv(p, gl.LINK_STATUS, &status)
+	if status == gl.FALSE {
+		var n int32
+		gl.GetProgramiv(p, gl.INFO_LOG_LENGTH, &n)
+		buf := make([]uint8, n+1)
+		gl.GetProgramInfoLog(p, n, nil, &buf[0])
+		gl.DeleteProgram(p)
+		return 0, fmt.Errorf("link: %s", buf)
+	}
+	return p, nil
+}
+
+func compileShader(src string, kind uint32) (uint32, error) {
+	sh := gl.CreateShader(kind)
+	cstr, free := gl.Strs(src)
+	gl.ShaderSource(sh, 1, cstr, nil)
+	free()
+	gl.CompileShader(sh)
+	var status int32
+	gl.GetShaderiv(sh, gl.COMPILE_STATUS, &status)
+	if status == gl.FALSE {
+		var n int32
+		gl.GetShaderiv(sh, gl.INFO_LOG_LENGTH, &n)
+		buf := make([]uint8, n+1)
+		gl.GetShaderInfoLog(sh, n, nil, &buf[0])
+		gl.DeleteShader(sh)
+		return 0, fmt.Errorf("%s", buf)
+	}
+	return sh, nil
+}
+
 // ── main ──────────────────────────────────────────────────────────────────────
 
 func main() {
@@ -217,7 +270,7 @@ func main() {
 
 	gl.Enable(gl.DEPTH_TEST)
 
-	prog, err := glutil.BuildProgram(vertSrc, fragSrc)
+	prog, err := buildProgram(vertSrc, fragSrc)
 	if err != nil {
 		log.Fatal(err)
 	}
