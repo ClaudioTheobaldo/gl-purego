@@ -1,4 +1,4 @@
-module github.com/ClaudioTheobaldo/gl-purego/examples/cube
+module github.com/ClaudioTheobaldo/gl-purego/examples/11_depth_testing
 
 go 1.25.0
 

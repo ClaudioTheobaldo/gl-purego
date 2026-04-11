@@ -15,8 +15,9 @@ import (
 	"math"
 	"unsafe"
 
-	gl   "github.com/ClaudioTheobaldo/gl-purego/v2.1/gl"
-	glfw "github.com/ClaudioTheobaldo/glfw-purego/v3.3/glfw"
+	gl     "github.com/ClaudioTheobaldo/gl-purego/v2.1/gl"
+	glutil "github.com/ClaudioTheobaldo/gl-purego/examples/glutil"
+	glfw   "github.com/ClaudioTheobaldo/glfw-purego/v3.3/glfw"
 )
 
 const (
@@ -97,7 +98,7 @@ func main() {
 	fmt.Printf("Sphere: %d vertices, %d triangles\n", len(vertices)/6, indexCount/3)
 
 	// Compile shaders
-	prog, err := buildProgram(vertSrc, fragSrc)
+	prog, err := glutil.BuildProgram(vertSrc, fragSrc)
 	if err != nil {
 		log.Fatalf("shader: %v", err)
 	}
@@ -141,10 +142,10 @@ func main() {
 		gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 
 		t := float32(glfw.GetTime())
-		model := rotY(t * 0.5)
-		view  := lookAt(0, camDist*0.32, camDist, 0, 0, 0, 0, 1, 0)
-		proj  := perspective(toRad(45), float32(winW)/float32(winH), 0.1, 100)
-		mvp   := matMul(proj, matMul(view, model))
+		model := glutil.RotY(t * 0.5)
+		view  := glutil.LookAt([3]float32{0, camDist * 0.32, camDist}, [3]float32{0, 0, 0}, [3]float32{0, 1, 0})
+		proj  := glutil.Perspective(glutil.ToRad(45), float32(winW)/float32(winH), 0.1, 100)
+		mvp   := glutil.MatMul(proj, glutil.MatMul(view, model))
 
 		gl.UseProgram(prog)
 		gl.UniformMatrix4fv(uMVP, 1, false, &mvp[0])
@@ -191,118 +192,4 @@ func abs32(x float32) float32 {
 		return -x
 	}
 	return x
-}
-
-// ----------------------------------------------------------------------------
-// Matrix math (column-major, OpenGL convention)
-// ----------------------------------------------------------------------------
-
-func matMul(a, b [16]float32) [16]float32 {
-	var m [16]float32
-	for col := 0; col < 4; col++ {
-		for row := 0; row < 4; row++ {
-			var v float32
-			for k := 0; k < 4; k++ {
-				v += a[k*4+row] * b[col*4+k]
-			}
-			m[col*4+row] = v
-		}
-	}
-	return m
-}
-
-func perspective(fovY, aspect, near, far float32) [16]float32 {
-	f := float32(1.0 / math.Tan(float64(fovY)/2.0))
-	return [16]float32{
-		f / aspect, 0, 0, 0,
-		0, f, 0, 0,
-		0, 0, -(far + near) / (far - near), -1,
-		0, 0, -2 * far * near / (far - near), 0,
-	}
-}
-
-func lookAt(eyeX, eyeY, eyeZ, cX, cY, cZ, upX, upY, upZ float32) [16]float32 {
-	fx := cX - eyeX; fy := cY - eyeY; fz := cZ - eyeZ
-	fl := float32(math.Sqrt(float64(fx*fx + fy*fy + fz*fz)))
-	fx /= fl; fy /= fl; fz /= fl
-
-	rx := fy*upZ - fz*upY
-	ry := fz*upX - fx*upZ
-	rz := fx*upY - fy*upX
-	rl := float32(math.Sqrt(float64(rx*rx + ry*ry + rz*rz)))
-	rx /= rl; ry /= rl; rz /= rl
-
-	ux := ry*fz - rz*fy
-	uy := rz*fx - rx*fz
-	uz := rx*fy - ry*fx
-
-	return [16]float32{
-		rx, ux, -fx, 0,
-		ry, uy, -fy, 0,
-		rz, uz, -fz, 0,
-		-(rx*eyeX + ry*eyeY + rz*eyeZ),
-		-(ux*eyeX + uy*eyeY + uz*eyeZ),
-		fx*eyeX + fy*eyeY + fz*eyeZ,
-		1,
-	}
-}
-
-func rotY(a float32) [16]float32 {
-	c := float32(math.Cos(float64(a)))
-	s := float32(math.Sin(float64(a)))
-	return [16]float32{c, 0, -s, 0, 0, 1, 0, 0, s, 0, c, 0, 0, 0, 0, 1}
-}
-
-func toRad(deg float32) float32 { return deg * math.Pi / 180 }
-
-// ----------------------------------------------------------------------------
-// Shader helpers
-// ----------------------------------------------------------------------------
-
-func buildProgram(vertSrc, fragSrc string) (uint32, error) {
-	vs, err := compileShader(vertSrc, gl.VERTEX_SHADER)
-	if err != nil {
-		return 0, fmt.Errorf("vertex: %w", err)
-	}
-	fs, err := compileShader(fragSrc, gl.FRAGMENT_SHADER)
-	if err != nil {
-		gl.DeleteShader(vs)
-		return 0, fmt.Errorf("fragment: %w", err)
-	}
-	prog := gl.CreateProgram()
-	gl.AttachShader(prog, vs)
-	gl.AttachShader(prog, fs)
-	gl.LinkProgram(prog)
-	gl.DeleteShader(vs)
-	gl.DeleteShader(fs)
-	var status int32
-	gl.GetProgramiv(prog, gl.LINK_STATUS, &status)
-	if status == gl.FALSE {
-		var n int32
-		gl.GetProgramiv(prog, gl.INFO_LOG_LENGTH, &n)
-		buf := make([]uint8, n+1)
-		gl.GetProgramInfoLog(prog, n, nil, &buf[0])
-		gl.DeleteProgram(prog)
-		return 0, fmt.Errorf("link: %s", string(buf))
-	}
-	return prog, nil
-}
-
-func compileShader(src string, kind uint32) (uint32, error) {
-	sh := gl.CreateShader(kind)
-	cstr, free := gl.Strs(src)
-	gl.ShaderSource(sh, 1, cstr, nil)
-	free()
-	gl.CompileShader(sh)
-	var status int32
-	gl.GetShaderiv(sh, gl.COMPILE_STATUS, &status)
-	if status == gl.FALSE {
-		var n int32
-		gl.GetShaderiv(sh, gl.INFO_LOG_LENGTH, &n)
-		buf := make([]uint8, n+1)
-		gl.GetShaderInfoLog(sh, n, nil, &buf[0])
-		gl.DeleteShader(sh)
-		return 0, fmt.Errorf("%s", string(buf))
-	}
-	return sh, nil
 }

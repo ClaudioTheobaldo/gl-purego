@@ -15,8 +15,9 @@ import (
 	"math"
 	"unsafe"
 
-	gl   "github.com/ClaudioTheobaldo/gl-purego/v2.1/gl"
-	glfw "github.com/ClaudioTheobaldo/glfw-purego/v3.3/glfw"
+	gl     "github.com/ClaudioTheobaldo/gl-purego/v2.1/gl"
+	glutil "github.com/ClaudioTheobaldo/gl-purego/examples/glutil"
+	glfw   "github.com/ClaudioTheobaldo/glfw-purego/v3.3/glfw"
 )
 
 var (
@@ -99,7 +100,7 @@ func main() {
 	winW, winH = win.GetFramebufferSize()
 	gl.Viewport(0, 0, int32(winW), int32(winH))
 
-	prog, err := buildProgram(vertSrc, fragSrc)
+	prog, err := glutil.BuildProgram(vertSrc, fragSrc)
 	if err != nil {
 		log.Fatalf("shader: %v", err)
 	}
@@ -142,8 +143,8 @@ func main() {
 		aspect := float32(winW) / float32(winH)
 		mvp := ortho(-aspect, aspect, -1, 1, -1, 1)
 		// embed 2D rotation into the XY plane of the MVP
-		rot := rotZ(t * 0.4)
-		mvp = matMul(mvp, rot)
+		rot := glutil.RotZ(t * 0.4)
+		mvp = glutil.MatMul(mvp, rot)
 
 		gl.UseProgram(prog)
 		gl.UniformMatrix4fv(uMVP, 1, false, &mvp[0])
@@ -200,22 +201,8 @@ func hsvToRGB(h float32) (r, g, b float32) {
 }
 
 // ----------------------------------------------------------------------------
-// Matrix math (column-major)
+// ortho is not provided by glutil — kept as a local helper.
 // ----------------------------------------------------------------------------
-
-func matMul(a, b [16]float32) [16]float32 {
-	var m [16]float32
-	for col := 0; col < 4; col++ {
-		for row := 0; row < 4; row++ {
-			var v float32
-			for k := 0; k < 4; k++ {
-				v += a[k*4+row] * b[col*4+k]
-			}
-			m[col*4+row] = v
-		}
-	}
-	return m
-}
 
 func ortho(left, right, bottom, top, near, far float32) [16]float32 {
 	return [16]float32{
@@ -227,62 +214,4 @@ func ortho(left, right, bottom, top, near, far float32) [16]float32 {
 		-(far + near) / (far - near),
 		1,
 	}
-}
-
-func rotZ(a float32) [16]float32 {
-	c := float32(math.Cos(float64(a)))
-	s := float32(math.Sin(float64(a)))
-	return [16]float32{c, s, 0, 0, -s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
-}
-
-// ----------------------------------------------------------------------------
-// Shader helpers
-// ----------------------------------------------------------------------------
-
-func buildProgram(vs, fs string) (uint32, error) {
-	v, err := compileShader(vs, gl.VERTEX_SHADER)
-	if err != nil {
-		return 0, fmt.Errorf("vertex: %w", err)
-	}
-	f, err := compileShader(fs, gl.FRAGMENT_SHADER)
-	if err != nil {
-		gl.DeleteShader(v)
-		return 0, fmt.Errorf("fragment: %w", err)
-	}
-	p := gl.CreateProgram()
-	gl.AttachShader(p, v)
-	gl.AttachShader(p, f)
-	gl.LinkProgram(p)
-	gl.DeleteShader(v)
-	gl.DeleteShader(f)
-	var status int32
-	gl.GetProgramiv(p, gl.LINK_STATUS, &status)
-	if status == gl.FALSE {
-		var n int32
-		gl.GetProgramiv(p, gl.INFO_LOG_LENGTH, &n)
-		buf := make([]uint8, n+1)
-		gl.GetProgramInfoLog(p, n, nil, &buf[0])
-		gl.DeleteProgram(p)
-		return 0, fmt.Errorf("link: %s", buf)
-	}
-	return p, nil
-}
-
-func compileShader(src string, kind uint32) (uint32, error) {
-	sh := gl.CreateShader(kind)
-	cstr, free := gl.Strs(src)
-	gl.ShaderSource(sh, 1, cstr, nil)
-	free()
-	gl.CompileShader(sh)
-	var status int32
-	gl.GetShaderiv(sh, gl.COMPILE_STATUS, &status)
-	if status == gl.FALSE {
-		var n int32
-		gl.GetShaderiv(sh, gl.INFO_LOG_LENGTH, &n)
-		buf := make([]uint8, n+1)
-		gl.GetShaderInfoLog(sh, n, nil, &buf[0])
-		gl.DeleteShader(sh)
-		return 0, fmt.Errorf("%s", buf)
-	}
-	return sh, nil
 }

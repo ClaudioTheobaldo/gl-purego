@@ -11,11 +11,11 @@ package main
 import (
 	"fmt"
 	"log"
-	"math"
 	"unsafe"
 
-	gl   "github.com/ClaudioTheobaldo/gl-purego/v2.1/gl"
-	glfw "github.com/ClaudioTheobaldo/glfw-purego/v3.3/glfw"
+	gl     "github.com/ClaudioTheobaldo/gl-purego/v2.1/gl"
+	glutil "github.com/ClaudioTheobaldo/gl-purego/examples/glutil"
+	glfw   "github.com/ClaudioTheobaldo/glfw-purego/v3.3/glfw"
 )
 
 // Vertex layout: [X, Y, R, G, B]  — 5 × float32 per vertex, 3 vertices
@@ -78,14 +78,12 @@ func main() {
 	fw, fh := win.GetFramebufferSize()
 	gl.Viewport(0, 0, int32(fw), int32(fh))
 
-	// Compile shaders --------------------------------------------------------
-	prog, err := buildProgram(vertSrc, fragSrc)
+	prog, err := glutil.BuildProgram(vertSrc, fragSrc)
 	if err != nil {
 		log.Fatalf("shader build: %v", err)
 	}
 	defer gl.DeleteProgram(prog)
 
-	// Upload geometry --------------------------------------------------------
 	var vao, vbo uint32
 	gl.GenVertexArrays(1, &vao)
 	gl.GenBuffers(1, &vbo)
@@ -99,10 +97,8 @@ func main() {
 	gl.BufferData(gl.ARRAY_BUFFER, len(vertices)*4, unsafe.Pointer(&vertices[0]), gl.STATIC_DRAW)
 
 	const stride = int32(5 * 4) // 5 float32 × 4 bytes
-	// aPos  — location 0, 2 floats, byte offset 0
 	gl.VertexAttribPointer(0, 2, gl.FLOAT, false, stride, gl.PtrOffset(0))
 	gl.EnableVertexAttribArray(0)
-	// aColor — location 1, 3 floats, byte offset 8 (2 floats × 4 bytes)
 	gl.VertexAttribPointer(1, 3, gl.FLOAT, false, stride, gl.PtrOffset(8))
 	gl.EnableVertexAttribArray(1)
 
@@ -112,13 +108,12 @@ func main() {
 
 	fmt.Println("Rendering spinning triangle — press ESC to quit.")
 
-	// Render loop ------------------------------------------------------------
 	for !win.ShouldClose() {
 		gl.ClearColor(0.08, 0.08, 0.12, 1.0)
 		gl.Clear(gl.COLOR_BUFFER_BIT)
 
 		angle := float32(glfw.GetTime() * 0.8) // 0.8 rad/s
-		model := rotZ(angle)
+		model := glutil.RotZ(angle)
 
 		gl.UseProgram(prog)
 		gl.UniformMatrix4fv(uModel, 1, false, &model[0])
@@ -129,76 +124,4 @@ func main() {
 		win.SwapBuffers()
 		glfw.PollEvents()
 	}
-}
-
-// rotZ returns a column-major 4×4 rotation matrix around the Z axis.
-// (OpenGL / GLSL column-major convention, transpose=false)
-func rotZ(angle float32) [16]float32 {
-	c := float32(math.Cos(float64(angle)))
-	s := float32(math.Sin(float64(angle)))
-	// Column 0: ( c,  s, 0, 0)
-	// Column 1: (-s,  c, 0, 0)
-	// Column 2: ( 0,  0, 1, 0)
-	// Column 3: ( 0,  0, 0, 1)
-	return [16]float32{
-		c, s, 0, 0,
-		-s, c, 0, 0,
-		0, 0, 1, 0,
-		0, 0, 0, 1,
-	}
-}
-
-// buildProgram compiles vertex + fragment sources and links an OpenGL program.
-func buildProgram(vertSrc, fragSrc string) (uint32, error) {
-	vs, err := compileShader(vertSrc, gl.VERTEX_SHADER)
-	if err != nil {
-		return 0, fmt.Errorf("vertex shader: %w", err)
-	}
-	fs, err := compileShader(fragSrc, gl.FRAGMENT_SHADER)
-	if err != nil {
-		gl.DeleteShader(vs)
-		return 0, fmt.Errorf("fragment shader: %w", err)
-	}
-
-	prog := gl.CreateProgram()
-	gl.AttachShader(prog, vs)
-	gl.AttachShader(prog, fs)
-	gl.LinkProgram(prog)
-	gl.DeleteShader(vs)
-	gl.DeleteShader(fs)
-
-	var status int32
-	gl.GetProgramiv(prog, gl.LINK_STATUS, &status)
-	if status == gl.FALSE {
-		var logLen int32
-		gl.GetProgramiv(prog, gl.INFO_LOG_LENGTH, &logLen)
-		buf := make([]uint8, logLen+1)
-		gl.GetProgramInfoLog(prog, logLen, nil, &buf[0])
-		gl.DeleteProgram(prog)
-		return 0, fmt.Errorf("link: %s", string(buf))
-	}
-	return prog, nil
-}
-
-// compileShader compiles a single GLSL shader of the given type.
-func compileShader(src string, kind uint32) (uint32, error) {
-	shader := gl.CreateShader(kind)
-
-	cstr, free := gl.Strs(src)
-	gl.ShaderSource(shader, 1, cstr, nil)
-	free()
-
-	gl.CompileShader(shader)
-
-	var status int32
-	gl.GetShaderiv(shader, gl.COMPILE_STATUS, &status)
-	if status == gl.FALSE {
-		var logLen int32
-		gl.GetShaderiv(shader, gl.INFO_LOG_LENGTH, &logLen)
-		buf := make([]uint8, logLen+1)
-		gl.GetShaderInfoLog(shader, logLen, nil, &buf[0])
-		gl.DeleteShader(shader)
-		return 0, fmt.Errorf("%s", string(buf))
-	}
-	return shader, nil
 }

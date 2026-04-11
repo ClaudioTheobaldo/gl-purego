@@ -1,4 +1,4 @@
-module github.com/ClaudioTheobaldo/gl-purego/examples/cube
+module github.com/ClaudioTheobaldo/gl-purego/examples/07_camera
 
 go 1.25.0
 

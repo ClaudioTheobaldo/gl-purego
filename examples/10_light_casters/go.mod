@@ -1,4 +1,4 @@
-module github.com/ClaudioTheobaldo/gl-purego/examples/cube
+module github.com/ClaudioTheobaldo/gl-purego/examples/10_light_casters
 
 go 1.25.0
 

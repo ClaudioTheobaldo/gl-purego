@@ -1,4 +1,4 @@
-module github.com/ClaudioTheobaldo/gl-purego/examples/cube
+module github.com/ClaudioTheobaldo/gl-purego/examples/09_materials
 
 go 1.25.0
 
