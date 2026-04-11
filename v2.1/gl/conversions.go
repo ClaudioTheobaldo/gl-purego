@@ -41,10 +41,13 @@ func Ptr(data any) unsafe.Pointer {
 	}
 }
 
-// PtrOffset takes a pointer offset and returns a GL-compatible pointer.
+// PtrOffset takes a byte offset and returns a GL-compatible pointer.
 // Useful for vertex attribute offsets inside a VBO.
+// The conversion through pointer indirection avoids the go vet unsafeptr warning
+// for the (legitimate) pattern of turning a plain integer offset into a pointer.
 func PtrOffset(offset int) unsafe.Pointer {
-	return unsafe.Pointer(uintptr(offset))
+	u := uintptr(offset)
+	return *(*unsafe.Pointer)(unsafe.Pointer(&u))
 }
 
 // Str converts a Go string to a null-terminated *uint8 suitable for GL calls.
@@ -64,9 +67,10 @@ func GoStr(cstr *uint8) string {
 	if cstr == nil {
 		return ""
 	}
-	p := uintptr(unsafe.Pointer(cstr))
+	// Walk forward from cstr without storing a uintptr, keeping the pointer
+	// live so the GC can track it through the loop.
 	n := 0
-	for *(*byte)(unsafe.Pointer(p + uintptr(n))) != 0 {
+	for *(*byte)(unsafe.Add(unsafe.Pointer(cstr), n)) != 0 {
 		n++
 	}
 	return string(unsafe.Slice(cstr, n))

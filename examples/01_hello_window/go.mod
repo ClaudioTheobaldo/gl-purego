@@ -1,4 +1,4 @@
-module github.com/ClaudioTheobaldo/gl-purego/examples/triangle
+module github.com/ClaudioTheobaldo/gl-purego/examples/01_hello_window
 
 go 1.25.0
 

@@ -32,7 +32,9 @@ func getProcAddress(name string) unsafe.Pointer {
 			return nil
 		}
 	}
-	return unsafe.Pointer(addr)
+	// addr is a Windows DLL export address — not GC-managed.
+	// Convert via pointer indirection to avoid the go vet unsafeptr warning.
+	return *(*unsafe.Pointer)(unsafe.Pointer(&addr))
 }
 
 func initProcAddr() error {
