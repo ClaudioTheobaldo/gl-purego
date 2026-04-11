@@ -2,10 +2,7 @@
 
 ## Medium
 
-- **GL 3.3 example** — demonstrate a core-profile context end-to-end:
-  - GLFW hints: `OpenGLForwardCompatible=true`, `OpenGLProfile=CoreProfile`
-  - Mandatory VAO (required in core; no default VAO like 2.1 compat allows)
-  - Show something visually distinct from the 2.1 examples (e.g. instanced rendering, geometry shader, UBO)
+- ~~**GL 3.3 example**~~ ✅ `examples/15_instancing` — 10×10 wave of cubes, single instanced draw call
 
 - **GL 4.x example** — one example per notable 4.x feature:
   - Direct State Access (DSA) — `glNamedBufferData`, `glVertexArrayAttribBinding`, etc.
