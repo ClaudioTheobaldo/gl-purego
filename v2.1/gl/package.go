@@ -10,315 +10,1441 @@ import "unsafe"
 // -----------------------------------------------------------------------------
 
 const (
-	// Boolean
+	ACCUM = 0x0100
+	ACCUM_ALPHA_BITS = 0x0D5B
+	ACCUM_BLUE_BITS = 0x0D5A
+	ACCUM_BUFFER_BIT = 0x00000200
+	ACCUM_CLEAR_VALUE = 0x0B80
+	ACCUM_GREEN_BITS = 0x0D59
+	ACCUM_RED_BITS = 0x0D58
+	ACTIVE_ATTRIBUTES = 0x8B89
+	ACTIVE_ATTRIBUTE_MAX_LENGTH = 0x8B8A
+	ACTIVE_TEXTURE = 0x84E0
+	ACTIVE_UNIFORMS = 0x8B86
+	ACTIVE_UNIFORM_MAX_LENGTH = 0x8B87
+	ADD = 0x0104
+	ADD_SIGNED = 0x8574
+	ALIASED_LINE_WIDTH_RANGE = 0x846E
+	ALIASED_POINT_SIZE_RANGE = 0x846D
+	ALL_ATTRIB_BITS = 0xFFFFFFFF
+	ALPHA = 0x1906
+	ALPHA12 = 0x803D
+	ALPHA16 = 0x803E
+	ALPHA4 = 0x803B
+	ALPHA8 = 0x803C
+	ALPHA_BIAS = 0x0D1D
+	ALPHA_BITS = 0x0D55
+	ALPHA_SCALE = 0x0D1C
+	ALPHA_TEST = 0x0BC0
+	ALPHA_TEST_FUNC = 0x0BC1
+	ALPHA_TEST_REF = 0x0BC2
+	ALWAYS = 0x0207
+	AMBIENT = 0x1200
+	AMBIENT_AND_DIFFUSE = 0x1602
+	AND = 0x1501
+	AND_INVERTED = 0x1504
+	AND_REVERSE = 0x1502
+	ARRAY_BUFFER = 0x8892
+	ARRAY_BUFFER_BINDING = 0x8894
+	ATTACHED_SHADERS = 0x8B85
+	ATTRIB_STACK_DEPTH = 0x0BB0
+	AUTO_NORMAL = 0x0D80
+	AUX0 = 0x0409
+	AUX1 = 0x040A
+	AUX2 = 0x040B
+	AUX3 = 0x040C
+	AUX_BUFFERS = 0x0C00
+	BACK = 0x0405
+	BACK_LEFT = 0x0402
+	BACK_RIGHT = 0x0403
+	BGR = 0x80E0
+	BGRA = 0x80E1
+	BITMAP = 0x1A00
+	BITMAP_TOKEN = 0x0704
+	BLEND = 0x0BE2
+	BLEND_COLOR = 0x8005
+	BLEND_DST = 0x0BE0
+	BLEND_DST_ALPHA = 0x80CA
+	BLEND_DST_RGB = 0x80C8
+	BLEND_EQUATION = 0x8009
+	BLEND_EQUATION_ALPHA = 0x883D
+	BLEND_EQUATION_RGB = 0x8009
+	BLEND_SRC = 0x0BE1
+	BLEND_SRC_ALPHA = 0x80CB
+	BLEND_SRC_RGB = 0x80C9
+	BLUE = 0x1905
+	BLUE_BIAS = 0x0D1B
+	BLUE_BITS = 0x0D54
+	BLUE_SCALE = 0x0D1A
+	BOOL = 0x8B56
+	BOOL_VEC2 = 0x8B57
+	BOOL_VEC3 = 0x8B58
+	BOOL_VEC4 = 0x8B59
+	BUFFER_ACCESS = 0x88BB
+	BUFFER_MAPPED = 0x88BC
+	BUFFER_MAP_POINTER = 0x88BD
+	BUFFER_SIZE = 0x8764
+	BUFFER_USAGE = 0x8765
+	BYTE = 0x1400
+	C3F_V3F = 0x2A24
+	C4F_N3F_V3F = 0x2A26
+	C4UB_V2F = 0x2A22
+	C4UB_V3F = 0x2A23
+	CCW = 0x0901
+	CLAMP = 0x2900
+	CLAMP_TO_BORDER = 0x812D
+	CLAMP_TO_EDGE = 0x812F
+	CLEAR = 0x1500
+	CLIENT_ACTIVE_TEXTURE = 0x84E1
+	CLIENT_ALL_ATTRIB_BITS = 0xFFFFFFFF
+	CLIENT_ATTRIB_STACK_DEPTH = 0x0BB1
+	CLIENT_PIXEL_STORE_BIT = 0x00000001
+	CLIENT_VERTEX_ARRAY_BIT = 0x00000002
+	CLIP_PLANE0 = 0x3000
+	CLIP_PLANE1 = 0x3001
+	CLIP_PLANE2 = 0x3002
+	CLIP_PLANE3 = 0x3003
+	CLIP_PLANE4 = 0x3004
+	CLIP_PLANE5 = 0x3005
+	COEFF = 0x0A00
+	COLOR = 0x1800
+	COLOR_ARRAY = 0x8076
+	COLOR_ARRAY_BUFFER_BINDING = 0x8898
+	COLOR_ARRAY_POINTER = 0x8090
+	COLOR_ARRAY_SIZE = 0x8081
+	COLOR_ARRAY_STRIDE = 0x8083
+	COLOR_ARRAY_TYPE = 0x8082
+	COLOR_BUFFER_BIT = 0x00004000
+	COLOR_CLEAR_VALUE = 0x0C22
+	COLOR_INDEX = 0x1900
+	COLOR_INDEXES = 0x1603
+	COLOR_LOGIC_OP = 0x0BF2
+	COLOR_MATERIAL = 0x0B57
+	COLOR_MATERIAL_FACE = 0x0B55
+	COLOR_MATERIAL_PARAMETER = 0x0B56
+	COLOR_SUM = 0x8458
+	COLOR_WRITEMASK = 0x0C23
+	COMBINE = 0x8570
+	COMBINE_ALPHA = 0x8572
+	COMBINE_RGB = 0x8571
+	COMPARE_R_TO_TEXTURE = 0x884E
+	COMPILE = 0x1300
+	COMPILE_AND_EXECUTE = 0x1301
+	COMPILE_STATUS = 0x8B81
+	COMPRESSED_ALPHA = 0x84E9
+	COMPRESSED_INTENSITY = 0x84EC
+	COMPRESSED_LUMINANCE = 0x84EA
+	COMPRESSED_LUMINANCE_ALPHA = 0x84EB
+	COMPRESSED_RGB = 0x84ED
+	COMPRESSED_RGBA = 0x84EE
+	COMPRESSED_SLUMINANCE = 0x8C4A
+	COMPRESSED_SLUMINANCE_ALPHA = 0x8C4B
+	COMPRESSED_SRGB = 0x8C48
+	COMPRESSED_SRGB_ALPHA = 0x8C49
+	COMPRESSED_TEXTURE_FORMATS = 0x86A3
+	CONSTANT = 0x8576
+	CONSTANT_ALPHA = 0x8003
+	CONSTANT_ATTENUATION = 0x1207
+	CONSTANT_COLOR = 0x8001
+	COORD_REPLACE = 0x8862
+	COPY = 0x1503
+	COPY_INVERTED = 0x150C
+	COPY_PIXEL_TOKEN = 0x0706
+	CULL_FACE = 0x0B44
+	CULL_FACE_MODE = 0x0B45
+	CURRENT_BIT = 0x00000001
+	CURRENT_COLOR = 0x0B00
+	CURRENT_FOG_COORD = 0x8453
+	CURRENT_FOG_COORDINATE = 0x8453
+	CURRENT_INDEX = 0x0B01
+	CURRENT_NORMAL = 0x0B02
+	CURRENT_PROGRAM = 0x8B8D
+	CURRENT_QUERY = 0x8865
+	CURRENT_RASTER_COLOR = 0x0B04
+	CURRENT_RASTER_DISTANCE = 0x0B09
+	CURRENT_RASTER_INDEX = 0x0B05
+	CURRENT_RASTER_POSITION = 0x0B07
+	CURRENT_RASTER_POSITION_VALID = 0x0B08
+	CURRENT_RASTER_SECONDARY_COLOR = 0x845F
+	CURRENT_RASTER_TEXTURE_COORDS = 0x0B06
+	CURRENT_SECONDARY_COLOR = 0x8459
+	CURRENT_TEXTURE_COORDS = 0x0B03
+	CURRENT_VERTEX_ATTRIB = 0x8626
+	CW = 0x0900
+	DECAL = 0x2101
+	DECR = 0x1E03
+	DECR_WRAP = 0x8508
+	DELETE_STATUS = 0x8B80
+	DEPTH = 0x1801
+	DEPTH_BIAS = 0x0D1F
+	DEPTH_BITS = 0x0D56
+	DEPTH_BUFFER_BIT = 0x00000100
+	DEPTH_CLEAR_VALUE = 0x0B73
+	DEPTH_COMPONENT = 0x1902
+	DEPTH_COMPONENT16 = 0x81A5
+	DEPTH_COMPONENT24 = 0x81A6
+	DEPTH_COMPONENT32 = 0x81A7
+	DEPTH_FUNC = 0x0B74
+	DEPTH_RANGE = 0x0B70
+	DEPTH_SCALE = 0x0D1E
+	DEPTH_TEST = 0x0B71
+	DEPTH_TEXTURE_MODE = 0x884B
+	DEPTH_WRITEMASK = 0x0B72
+	DIFFUSE = 0x1201
+	DITHER = 0x0BD0
+	DOMAIN = 0x0A02
+	DONT_CARE = 0x1100
+	DOT3_RGB = 0x86AE
+	DOT3_RGBA = 0x86AF
+	DOUBLE = 0x140A
+	DOUBLEBUFFER = 0x0C32
+	DRAW_BUFFER = 0x0C01
+	DRAW_BUFFER0 = 0x8825
+	DRAW_BUFFER1 = 0x8826
+	DRAW_BUFFER10 = 0x882F
+	DRAW_BUFFER11 = 0x8830
+	DRAW_BUFFER12 = 0x8831
+	DRAW_BUFFER13 = 0x8832
+	DRAW_BUFFER14 = 0x8833
+	DRAW_BUFFER15 = 0x8834
+	DRAW_BUFFER2 = 0x8827
+	DRAW_BUFFER3 = 0x8828
+	DRAW_BUFFER4 = 0x8829
+	DRAW_BUFFER5 = 0x882A
+	DRAW_BUFFER6 = 0x882B
+	DRAW_BUFFER7 = 0x882C
+	DRAW_BUFFER8 = 0x882D
+	DRAW_BUFFER9 = 0x882E
+	DRAW_PIXEL_TOKEN = 0x0705
+	DST_ALPHA = 0x0304
+	DST_COLOR = 0x0306
+	DYNAMIC_COPY = 0x88EA
+	DYNAMIC_DRAW = 0x88E8
+	DYNAMIC_READ = 0x88E9
+	EDGE_FLAG = 0x0B43
+	EDGE_FLAG_ARRAY = 0x8079
+	EDGE_FLAG_ARRAY_BUFFER_BINDING = 0x889B
+	EDGE_FLAG_ARRAY_POINTER = 0x8093
+	EDGE_FLAG_ARRAY_STRIDE = 0x808C
+	ELEMENT_ARRAY_BUFFER = 0x8893
+	ELEMENT_ARRAY_BUFFER_BINDING = 0x8895
+	EMISSION = 0x1600
+	ENABLE_BIT = 0x00002000
+	EQUAL = 0x0202
+	EQUIV = 0x1509
+	EVAL_BIT = 0x00010000
+	EXP = 0x0800
+	EXP2 = 0x0801
+	EXTENSIONS = 0x1F03
+	EYE_LINEAR = 0x2400
+	EYE_PLANE = 0x2502
 	FALSE = 0
-	TRUE  = 1
-
-	// Primitives
-	POINTS         = 0x0000
-	LINES          = 0x0001
-	LINE_LOOP      = 0x0002
-	LINE_STRIP     = 0x0003
-	TRIANGLES      = 0x0004
-	TRIANGLE_STRIP = 0x0005
-	TRIANGLE_FAN   = 0x0006
-	QUADS          = 0x0007
-
-	// Errors
-	NO_ERROR          = 0
-	INVALID_ENUM      = 0x0500
-	INVALID_VALUE     = 0x0501
+	FASTEST = 0x1101
+	FEEDBACK = 0x1C01
+	FEEDBACK_BUFFER_POINTER = 0x0DF0
+	FEEDBACK_BUFFER_SIZE = 0x0DF1
+	FEEDBACK_BUFFER_TYPE = 0x0DF2
+	FILL = 0x1B02
+	FLAT = 0x1D00
+	FLOAT = 0x1406
+	FLOAT_MAT2 = 0x8B5A
+	FLOAT_MAT2x3 = 0x8B65
+	FLOAT_MAT2x4 = 0x8B66
+	FLOAT_MAT3 = 0x8B5B
+	FLOAT_MAT3x2 = 0x8B67
+	FLOAT_MAT3x4 = 0x8B68
+	FLOAT_MAT4 = 0x8B5C
+	FLOAT_MAT4x2 = 0x8B69
+	FLOAT_MAT4x3 = 0x8B6A
+	FLOAT_VEC2 = 0x8B50
+	FLOAT_VEC3 = 0x8B51
+	FLOAT_VEC4 = 0x8B52
+	FOG = 0x0B60
+	FOG_BIT = 0x00000080
+	FOG_COLOR = 0x0B66
+	FOG_COORD = 0x8451
+	FOG_COORDINATE = 0x8451
+	FOG_COORDINATE_ARRAY = 0x8457
+	FOG_COORDINATE_ARRAY_BUFFER_BINDING = 0x889D
+	FOG_COORDINATE_ARRAY_POINTER = 0x8456
+	FOG_COORDINATE_ARRAY_STRIDE = 0x8455
+	FOG_COORDINATE_ARRAY_TYPE = 0x8454
+	FOG_COORDINATE_SOURCE = 0x8450
+	FOG_COORD_ARRAY = 0x8457
+	FOG_COORD_ARRAY_BUFFER_BINDING = 0x889D
+	FOG_COORD_ARRAY_POINTER = 0x8456
+	FOG_COORD_ARRAY_STRIDE = 0x8455
+	FOG_COORD_ARRAY_TYPE = 0x8454
+	FOG_COORD_SRC = 0x8450
+	FOG_DENSITY = 0x0B62
+	FOG_END = 0x0B64
+	FOG_HINT = 0x0C54
+	FOG_INDEX = 0x0B61
+	FOG_MODE = 0x0B65
+	FOG_START = 0x0B63
+	FRAGMENT_DEPTH = 0x8452
+	FRAGMENT_SHADER = 0x8B30
+	FRAGMENT_SHADER_DERIVATIVE_HINT = 0x8B8B
+	FRONT = 0x0404
+	FRONT_AND_BACK = 0x0408
+	FRONT_FACE = 0x0B46
+	FRONT_LEFT = 0x0400
+	FRONT_RIGHT = 0x0401
+	FUNC_ADD = 0x8006
+	FUNC_REVERSE_SUBTRACT = 0x800B
+	FUNC_SUBTRACT = 0x800A
+	GENERATE_MIPMAP = 0x8191
+	GENERATE_MIPMAP_HINT = 0x8192
+	GEQUAL = 0x0206
+	GREATER = 0x0204
+	GREEN = 0x1904
+	GREEN_BIAS = 0x0D19
+	GREEN_BITS = 0x0D53
+	GREEN_SCALE = 0x0D18
+	HINT_BIT = 0x00008000
+	INCR = 0x1E02
+	INCR_WRAP = 0x8507
+	INDEX_ARRAY = 0x8077
+	INDEX_ARRAY_BUFFER_BINDING = 0x8899
+	INDEX_ARRAY_POINTER = 0x8091
+	INDEX_ARRAY_STRIDE = 0x8086
+	INDEX_ARRAY_TYPE = 0x8085
+	INDEX_BITS = 0x0D51
+	INDEX_CLEAR_VALUE = 0x0C20
+	INDEX_LOGIC_OP = 0x0BF1
+	INDEX_MODE = 0x0C30
+	INDEX_OFFSET = 0x0D13
+	INDEX_SHIFT = 0x0D12
+	INDEX_WRITEMASK = 0x0C21
+	INFO_LOG_LENGTH = 0x8B84
+	INT = 0x1404
+	INTENSITY = 0x8049
+	INTENSITY12 = 0x804C
+	INTENSITY16 = 0x804D
+	INTENSITY4 = 0x804A
+	INTENSITY8 = 0x804B
+	INTERPOLATE = 0x8575
+	INT_VEC2 = 0x8B53
+	INT_VEC3 = 0x8B54
+	INT_VEC4 = 0x8B55
+	INVALID_ENUM = 0x0500
 	INVALID_OPERATION = 0x0502
-	STACK_OVERFLOW    = 0x0503
-	STACK_UNDERFLOW   = 0x0504
-	OUT_OF_MEMORY     = 0x0505
-
-	// String names
-	VENDOR                   = 0x1F00
-	RENDERER                 = 0x1F01
-	VERSION                  = 0x1F02
-	SHADING_LANGUAGE_VERSION = 0x8B8C
-	EXTENSIONS               = 0x1F03
-
-	// Texture targets
-	TEXTURE_1D                = 0x0DE0
-	TEXTURE_2D                = 0x0DE1
-	TEXTURE_3D                = 0x806F
-	TEXTURE_CUBE_MAP          = 0x8513
-	TEXTURE_CUBE_MAP_POSITIVE_X = 0x8515
-	TEXTURE_CUBE_MAP_NEGATIVE_X = 0x8516
-	TEXTURE_CUBE_MAP_POSITIVE_Y = 0x8517
-	TEXTURE_CUBE_MAP_NEGATIVE_Y = 0x8518
-	TEXTURE_CUBE_MAP_POSITIVE_Z = 0x8519
-	TEXTURE_CUBE_MAP_NEGATIVE_Z = 0x851A
-
-	// Texture parameters
-	TEXTURE_MIN_FILTER    = 0x2801
-	TEXTURE_MAG_FILTER    = 0x2800
-	TEXTURE_WRAP_S        = 0x2802
-	TEXTURE_WRAP_T        = 0x2803
-	TEXTURE_WRAP_R        = 0x8072
-	NEAREST               = 0x2600
-	LINEAR                = 0x2601
+	INVALID_VALUE = 0x0501
+	INVERT = 0x150A
+	KEEP = 0x1E00
+	LEFT = 0x0406
+	LEQUAL = 0x0203
+	LESS = 0x0201
+	LIGHT0 = 0x4000
+	LIGHT1 = 0x4001
+	LIGHT2 = 0x4002
+	LIGHT3 = 0x4003
+	LIGHT4 = 0x4004
+	LIGHT5 = 0x4005
+	LIGHT6 = 0x4006
+	LIGHT7 = 0x4007
+	LIGHTING = 0x0B50
+	LIGHTING_BIT = 0x00000040
+	LIGHT_MODEL_AMBIENT = 0x0B53
+	LIGHT_MODEL_COLOR_CONTROL = 0x81F8
+	LIGHT_MODEL_LOCAL_VIEWER = 0x0B51
+	LIGHT_MODEL_TWO_SIDE = 0x0B52
+	LINE = 0x1B01
+	LINEAR = 0x2601
+	LINEAR_ATTENUATION = 0x1208
+	LINEAR_MIPMAP_LINEAR = 0x2703
+	LINEAR_MIPMAP_NEAREST = 0x2701
+	LINES = 0x0001
+	LINE_BIT = 0x00000004
+	LINE_LOOP = 0x0002
+	LINE_RESET_TOKEN = 0x0707
+	LINE_SMOOTH = 0x0B20
+	LINE_SMOOTH_HINT = 0x0C52
+	LINE_STIPPLE = 0x0B24
+	LINE_STIPPLE_PATTERN = 0x0B25
+	LINE_STIPPLE_REPEAT = 0x0B26
+	LINE_STRIP = 0x0003
+	LINE_TOKEN = 0x0702
+	LINE_WIDTH = 0x0B21
+	LINE_WIDTH_GRANULARITY = 0x0B23
+	LINE_WIDTH_RANGE = 0x0B22
+	LINK_STATUS = 0x8B82
+	LIST_BASE = 0x0B32
+	LIST_BIT = 0x00020000
+	LIST_INDEX = 0x0B33
+	LIST_MODE = 0x0B30
+	LOAD = 0x0101
+	LOGIC_OP = 0x0BF1
+	LOGIC_OP_MODE = 0x0BF0
+	LOWER_LEFT = 0x8CA1
+	LUMINANCE = 0x1909
+	LUMINANCE12 = 0x8041
+	LUMINANCE12_ALPHA12 = 0x8047
+	LUMINANCE12_ALPHA4 = 0x8046
+	LUMINANCE16 = 0x8042
+	LUMINANCE16_ALPHA16 = 0x8048
+	LUMINANCE4 = 0x803F
+	LUMINANCE4_ALPHA4 = 0x8043
+	LUMINANCE6_ALPHA2 = 0x8044
+	LUMINANCE8 = 0x8040
+	LUMINANCE8_ALPHA8 = 0x8045
+	LUMINANCE_ALPHA = 0x190A
+	MAP1_COLOR_4 = 0x0D90
+	MAP1_GRID_DOMAIN = 0x0DD0
+	MAP1_GRID_SEGMENTS = 0x0DD1
+	MAP1_INDEX = 0x0D91
+	MAP1_NORMAL = 0x0D92
+	MAP1_TEXTURE_COORD_1 = 0x0D93
+	MAP1_TEXTURE_COORD_2 = 0x0D94
+	MAP1_TEXTURE_COORD_3 = 0x0D95
+	MAP1_TEXTURE_COORD_4 = 0x0D96
+	MAP1_VERTEX_3 = 0x0D97
+	MAP1_VERTEX_4 = 0x0D98
+	MAP2_COLOR_4 = 0x0DB0
+	MAP2_GRID_DOMAIN = 0x0DD2
+	MAP2_GRID_SEGMENTS = 0x0DD3
+	MAP2_INDEX = 0x0DB1
+	MAP2_NORMAL = 0x0DB2
+	MAP2_TEXTURE_COORD_1 = 0x0DB3
+	MAP2_TEXTURE_COORD_2 = 0x0DB4
+	MAP2_TEXTURE_COORD_3 = 0x0DB5
+	MAP2_TEXTURE_COORD_4 = 0x0DB6
+	MAP2_VERTEX_3 = 0x0DB7
+	MAP2_VERTEX_4 = 0x0DB8
+	MAP_COLOR = 0x0D10
+	MAP_STENCIL = 0x0D11
+	MATRIX_MODE = 0x0BA0
+	MAX = 0x8008
+	MAX_3D_TEXTURE_SIZE = 0x8073
+	MAX_ATTRIB_STACK_DEPTH = 0x0D35
+	MAX_CLIENT_ATTRIB_STACK_DEPTH = 0x0D3B
+	MAX_CLIP_PLANES = 0x0D32
+	MAX_COMBINED_TEXTURE_IMAGE_UNITS = 0x8B4D
+	MAX_CUBE_MAP_TEXTURE_SIZE = 0x851C
+	MAX_DRAW_BUFFERS = 0x8824
+	MAX_ELEMENTS_INDICES = 0x80E9
+	MAX_ELEMENTS_VERTICES = 0x80E8
+	MAX_EVAL_ORDER = 0x0D30
+	MAX_FRAGMENT_UNIFORM_COMPONENTS = 0x8B49
+	MAX_LIGHTS = 0x0D31
+	MAX_LIST_NESTING = 0x0B31
+	MAX_MODELVIEW_STACK_DEPTH = 0x0D36
+	MAX_NAME_STACK_DEPTH = 0x0D37
+	MAX_PIXEL_MAP_TABLE = 0x0D34
+	MAX_PROJECTION_STACK_DEPTH = 0x0D38
+	MAX_TEXTURE_COORDS = 0x8871
+	MAX_TEXTURE_IMAGE_UNITS = 0x8872
+	MAX_TEXTURE_LOD_BIAS = 0x84FD
+	MAX_TEXTURE_SIZE = 0x0D33
+	MAX_TEXTURE_STACK_DEPTH = 0x0D39
+	MAX_TEXTURE_UNITS = 0x84E2
+	MAX_VARYING_FLOATS = 0x8B4B
+	MAX_VERTEX_ATTRIBS = 0x8869
+	MAX_VERTEX_TEXTURE_IMAGE_UNITS = 0x8B4C
+	MAX_VERTEX_UNIFORM_COMPONENTS = 0x8B4A
+	MAX_VIEWPORT_DIMS = 0x0D3A
+	MIN = 0x8007
+	MIRRORED_REPEAT = 0x8370
+	MODELVIEW = 0x1700
+	MODELVIEW_MATRIX = 0x0BA6
+	MODELVIEW_STACK_DEPTH = 0x0BA3
+	MODULATE = 0x2100
+	MULT = 0x0103
+	MULTISAMPLE = 0x809D
+	MULTISAMPLE_BIT = 0x20000000
+	N3F_V3F = 0x2A25
+	NAME_STACK_DEPTH = 0x0D70
+	NAND = 0x150E
+	NEAREST = 0x2600
+	NEAREST_MIPMAP_LINEAR = 0x2702
 	NEAREST_MIPMAP_NEAREST = 0x2700
-	LINEAR_MIPMAP_NEAREST  = 0x2701
-	NEAREST_MIPMAP_LINEAR  = 0x2702
-	LINEAR_MIPMAP_LINEAR   = 0x2703
-	CLAMP_TO_EDGE         = 0x812F
-	REPEAT                = 0x2901
-	MIRRORED_REPEAT       = 0x8370
-
-	// Texture units
-	TEXTURE0  = 0x84C0
-	TEXTURE1  = 0x84C1
-	TEXTURE2  = 0x84C2
-	TEXTURE3  = 0x84C3
-	TEXTURE4  = 0x84C4
-	TEXTURE5  = 0x84C5
-	TEXTURE6  = 0x84C6
-	TEXTURE7  = 0x84C7
-	TEXTURE8  = 0x84C8
-	TEXTURE9  = 0x84C9
+	NEVER = 0x0200
+	NICEST = 0x1102
+	NONE = 0
+	NOOP = 0x1505
+	NOR = 0x1508
+	NORMALIZE = 0x0BA1
+	NORMAL_ARRAY = 0x8075
+	NORMAL_ARRAY_BUFFER_BINDING = 0x8897
+	NORMAL_ARRAY_POINTER = 0x808F
+	NORMAL_ARRAY_STRIDE = 0x807F
+	NORMAL_ARRAY_TYPE = 0x807E
+	NORMAL_MAP = 0x8511
+	NOTEQUAL = 0x0205
+	NO_ERROR = 0
+	NUM_COMPRESSED_TEXTURE_FORMATS = 0x86A2
+	OBJECT_LINEAR = 0x2401
+	OBJECT_PLANE = 0x2501
+	ONE = 1
+	ONE_MINUS_CONSTANT_ALPHA = 0x8004
+	ONE_MINUS_CONSTANT_COLOR = 0x8002
+	ONE_MINUS_DST_ALPHA = 0x0305
+	ONE_MINUS_DST_COLOR = 0x0307
+	ONE_MINUS_SRC_ALPHA = 0x0303
+	ONE_MINUS_SRC_COLOR = 0x0301
+	OPERAND0_ALPHA = 0x8598
+	OPERAND0_RGB = 0x8590
+	OPERAND1_ALPHA = 0x8599
+	OPERAND1_RGB = 0x8591
+	OPERAND2_ALPHA = 0x859A
+	OPERAND2_RGB = 0x8592
+	OR = 0x1507
+	ORDER = 0x0A01
+	OR_INVERTED = 0x150D
+	OR_REVERSE = 0x150B
+	OUT_OF_MEMORY = 0x0505
+	PACK_ALIGNMENT = 0x0D05
+	PACK_IMAGE_HEIGHT = 0x806C
+	PACK_LSB_FIRST = 0x0D01
+	PACK_ROW_LENGTH = 0x0D02
+	PACK_SKIP_IMAGES = 0x806B
+	PACK_SKIP_PIXELS = 0x0D04
+	PACK_SKIP_ROWS = 0x0D03
+	PACK_SWAP_BYTES = 0x0D00
+	PASS_THROUGH_TOKEN = 0x0700
+	PERSPECTIVE_CORRECTION_HINT = 0x0C50
+	PIXEL_MAP_A_TO_A = 0x0C79
+	PIXEL_MAP_A_TO_A_SIZE = 0x0CB9
+	PIXEL_MAP_B_TO_B = 0x0C78
+	PIXEL_MAP_B_TO_B_SIZE = 0x0CB8
+	PIXEL_MAP_G_TO_G = 0x0C77
+	PIXEL_MAP_G_TO_G_SIZE = 0x0CB7
+	PIXEL_MAP_I_TO_A = 0x0C75
+	PIXEL_MAP_I_TO_A_SIZE = 0x0CB5
+	PIXEL_MAP_I_TO_B = 0x0C74
+	PIXEL_MAP_I_TO_B_SIZE = 0x0CB4
+	PIXEL_MAP_I_TO_G = 0x0C73
+	PIXEL_MAP_I_TO_G_SIZE = 0x0CB3
+	PIXEL_MAP_I_TO_I = 0x0C70
+	PIXEL_MAP_I_TO_I_SIZE = 0x0CB0
+	PIXEL_MAP_I_TO_R = 0x0C72
+	PIXEL_MAP_I_TO_R_SIZE = 0x0CB2
+	PIXEL_MAP_R_TO_R = 0x0C76
+	PIXEL_MAP_R_TO_R_SIZE = 0x0CB6
+	PIXEL_MAP_S_TO_S = 0x0C71
+	PIXEL_MAP_S_TO_S_SIZE = 0x0CB1
+	PIXEL_MODE_BIT = 0x00000020
+	PIXEL_PACK_BUFFER = 0x88EB
+	PIXEL_PACK_BUFFER_BINDING = 0x88ED
+	PIXEL_UNPACK_BUFFER = 0x88EC
+	PIXEL_UNPACK_BUFFER_BINDING = 0x88EF
+	POINT = 0x1B00
+	POINTS = 0x0000
+	POINT_BIT = 0x00000002
+	POINT_DISTANCE_ATTENUATION = 0x8129
+	POINT_FADE_THRESHOLD_SIZE = 0x8128
+	POINT_SIZE = 0x0B11
+	POINT_SIZE_GRANULARITY = 0x0B13
+	POINT_SIZE_MAX = 0x8127
+	POINT_SIZE_MIN = 0x8126
+	POINT_SIZE_RANGE = 0x0B12
+	POINT_SMOOTH = 0x0B10
+	POINT_SMOOTH_HINT = 0x0C51
+	POINT_SPRITE = 0x8861
+	POINT_SPRITE_COORD_ORIGIN = 0x8CA0
+	POINT_TOKEN = 0x0701
+	POLYGON = 0x0009
+	POLYGON_BIT = 0x00000008
+	POLYGON_MODE = 0x0B40
+	POLYGON_OFFSET_FACTOR = 0x8038
+	POLYGON_OFFSET_FILL = 0x8037
+	POLYGON_OFFSET_LINE = 0x2A02
+	POLYGON_OFFSET_POINT = 0x2A01
+	POLYGON_OFFSET_UNITS = 0x2A00
+	POLYGON_SMOOTH = 0x0B41
+	POLYGON_SMOOTH_HINT = 0x0C53
+	POLYGON_STIPPLE = 0x0B42
+	POLYGON_STIPPLE_BIT = 0x00000010
+	POLYGON_TOKEN = 0x0703
+	POSITION = 0x1203
+	PREVIOUS = 0x8578
+	PRIMARY_COLOR = 0x8577
+	PROJECTION = 0x1701
+	PROJECTION_MATRIX = 0x0BA7
+	PROJECTION_STACK_DEPTH = 0x0BA4
+	PROXY_TEXTURE_1D = 0x8063
+	PROXY_TEXTURE_2D = 0x8064
+	PROXY_TEXTURE_3D = 0x8070
+	PROXY_TEXTURE_CUBE_MAP = 0x851B
+	Q = 0x2003
+	QUADRATIC_ATTENUATION = 0x1209
+	QUADS = 0x0007
+	QUAD_STRIP = 0x0008
+	QUERY_COUNTER_BITS = 0x8864
+	QUERY_RESULT = 0x8866
+	QUERY_RESULT_AVAILABLE = 0x8867
+	R = 0x2002
+	R3_G3_B2 = 0x2A10
+	READ_BUFFER = 0x0C02
+	READ_ONLY = 0x88B8
+	READ_WRITE = 0x88BA
+	RED = 0x1903
+	RED_BIAS = 0x0D15
+	RED_BITS = 0x0D52
+	RED_SCALE = 0x0D14
+	REFLECTION_MAP = 0x8512
+	RENDER = 0x1C00
+	RENDERER = 0x1F01
+	RENDER_MODE = 0x0C40
+	REPEAT = 0x2901
+	REPLACE = 0x1E01
+	RESCALE_NORMAL = 0x803A
+	RETURN = 0x0102
+	RGB = 0x1907
+	RGB10 = 0x8052
+	RGB10_A2 = 0x8059
+	RGB12 = 0x8053
+	RGB16 = 0x8054
+	RGB4 = 0x804F
+	RGB5 = 0x8050
+	RGB5_A1 = 0x8057
+	RGB8 = 0x8051
+	RGBA = 0x1908
+	RGBA12 = 0x805A
+	RGBA16 = 0x805B
+	RGBA2 = 0x8055
+	RGBA4 = 0x8056
+	RGBA8 = 0x8058
+	RGBA_MODE = 0x0C31
+	RGB_SCALE = 0x8573
+	RIGHT = 0x0407
+	S = 0x2000
+	SAMPLER_1D = 0x8B5D
+	SAMPLER_1D_SHADOW = 0x8B61
+	SAMPLER_2D = 0x8B5E
+	SAMPLER_2D_SHADOW = 0x8B62
+	SAMPLER_3D = 0x8B5F
+	SAMPLER_CUBE = 0x8B60
+	SAMPLES = 0x80A9
+	SAMPLES_PASSED = 0x8914
+	SAMPLE_ALPHA_TO_COVERAGE = 0x809E
+	SAMPLE_ALPHA_TO_ONE = 0x809F
+	SAMPLE_BUFFERS = 0x80A8
+	SAMPLE_COVERAGE = 0x80A0
+	SAMPLE_COVERAGE_INVERT = 0x80AB
+	SAMPLE_COVERAGE_VALUE = 0x80AA
+	SCISSOR_BIT = 0x00080000
+	SCISSOR_BOX = 0x0C10
+	SCISSOR_TEST = 0x0C11
+	SECONDARY_COLOR_ARRAY = 0x845E
+	SECONDARY_COLOR_ARRAY_BUFFER_BINDING = 0x889C
+	SECONDARY_COLOR_ARRAY_POINTER = 0x845D
+	SECONDARY_COLOR_ARRAY_SIZE = 0x845A
+	SECONDARY_COLOR_ARRAY_STRIDE = 0x845C
+	SECONDARY_COLOR_ARRAY_TYPE = 0x845B
+	SELECT = 0x1C02
+	SELECTION_BUFFER_POINTER = 0x0DF3
+	SELECTION_BUFFER_SIZE = 0x0DF4
+	SEPARATE_SPECULAR_COLOR = 0x81FA
+	SET = 0x150F
+	SHADER_SOURCE_LENGTH = 0x8B88
+	SHADER_TYPE = 0x8B4F
+	SHADE_MODEL = 0x0B54
+	SHADING_LANGUAGE_VERSION = 0x8B8C
+	SHININESS = 0x1601
+	SHORT = 0x1402
+	SINGLE_COLOR = 0x81F9
+	SLUMINANCE = 0x8C46
+	SLUMINANCE8 = 0x8C47
+	SLUMINANCE8_ALPHA8 = 0x8C45
+	SLUMINANCE_ALPHA = 0x8C44
+	SMOOTH = 0x1D01
+	SMOOTH_LINE_WIDTH_GRANULARITY = 0x0B23
+	SMOOTH_LINE_WIDTH_RANGE = 0x0B22
+	SMOOTH_POINT_SIZE_GRANULARITY = 0x0B13
+	SMOOTH_POINT_SIZE_RANGE = 0x0B12
+	SOURCE0_ALPHA = 0x8588
+	SOURCE0_RGB = 0x8580
+	SOURCE1_ALPHA = 0x8589
+	SOURCE1_RGB = 0x8581
+	SOURCE2_ALPHA = 0x858A
+	SOURCE2_RGB = 0x8582
+	SPECULAR = 0x1202
+	SPHERE_MAP = 0x2402
+	SPOT_CUTOFF = 0x1206
+	SPOT_DIRECTION = 0x1204
+	SPOT_EXPONENT = 0x1205
+	SRC0_ALPHA = 0x8588
+	SRC0_RGB = 0x8580
+	SRC1_ALPHA = 0x8589
+	SRC1_RGB = 0x8581
+	SRC2_ALPHA = 0x858A
+	SRC2_RGB = 0x8582
+	SRC_ALPHA = 0x0302
+	SRC_ALPHA_SATURATE = 0x0308
+	SRC_COLOR = 0x0300
+	SRGB = 0x8C40
+	SRGB8 = 0x8C41
+	SRGB8_ALPHA8 = 0x8C43
+	SRGB_ALPHA = 0x8C42
+	STACK_OVERFLOW = 0x0503
+	STACK_UNDERFLOW = 0x0504
+	STATIC_COPY = 0x88E6
+	STATIC_DRAW = 0x88E4
+	STATIC_READ = 0x88E5
+	STENCIL = 0x1802
+	STENCIL_BACK_FAIL = 0x8801
+	STENCIL_BACK_FUNC = 0x8800
+	STENCIL_BACK_PASS_DEPTH_FAIL = 0x8802
+	STENCIL_BACK_PASS_DEPTH_PASS = 0x8803
+	STENCIL_BACK_REF = 0x8CA3
+	STENCIL_BACK_VALUE_MASK = 0x8CA4
+	STENCIL_BACK_WRITEMASK = 0x8CA5
+	STENCIL_BITS = 0x0D57
+	STENCIL_BUFFER_BIT = 0x00000400
+	STENCIL_CLEAR_VALUE = 0x0B91
+	STENCIL_FAIL = 0x0B94
+	STENCIL_FUNC = 0x0B92
+	STENCIL_INDEX = 0x1901
+	STENCIL_PASS_DEPTH_FAIL = 0x0B95
+	STENCIL_PASS_DEPTH_PASS = 0x0B96
+	STENCIL_REF = 0x0B97
+	STENCIL_TEST = 0x0B90
+	STENCIL_VALUE_MASK = 0x0B93
+	STENCIL_WRITEMASK = 0x0B98
+	STEREO = 0x0C33
+	STREAM_COPY = 0x88E2
+	STREAM_DRAW = 0x88E0
+	STREAM_READ = 0x88E1
+	SUBPIXEL_BITS = 0x0D50
+	SUBTRACT = 0x84E7
+	T = 0x2001
+	T2F_C3F_V3F = 0x2A2A
+	T2F_C4F_N3F_V3F = 0x2A2C
+	T2F_C4UB_V3F = 0x2A29
+	T2F_N3F_V3F = 0x2A2B
+	T2F_V3F = 0x2A27
+	T4F_C4F_N3F_V4F = 0x2A2D
+	T4F_V4F = 0x2A28
+	TEXTURE = 0x1702
+	TEXTURE0 = 0x84C0
+	TEXTURE1 = 0x84C1
 	TEXTURE10 = 0x84CA
 	TEXTURE11 = 0x84CB
 	TEXTURE12 = 0x84CC
 	TEXTURE13 = 0x84CD
 	TEXTURE14 = 0x84CE
 	TEXTURE15 = 0x84CF
-
-	// Pixel formats
-	DEPTH_COMPONENT = 0x1902
-	RED             = 0x1903
-	GREEN           = 0x1904
-	BLUE            = 0x1905
-	ALPHA           = 0x1906
-	RGB             = 0x1907
-	RGBA            = 0x1908
-	LUMINANCE       = 0x1909
-	LUMINANCE_ALPHA = 0x190A
-	BGRA            = 0x80E1
-	BGR             = 0x80E0
-
-	// Pixel types
-	UNSIGNED_BYTE  = 0x1401
-	BYTE           = 0x1400
-	UNSIGNED_SHORT = 0x1403
-	SHORT          = 0x1402
-	UNSIGNED_INT   = 0x1405
-	INT            = 0x1404
-	FLOAT          = 0x1406
-
-	// Buffer clear bits
-	DEPTH_BUFFER_BIT   = 0x00000100
-	STENCIL_BUFFER_BIT = 0x00000400
-	COLOR_BUFFER_BIT   = 0x00004000
-
-	// Buffer targets
-	ARRAY_BUFFER         = 0x8892
-	ELEMENT_ARRAY_BUFFER = 0x8893
-	UNIFORM_BUFFER       = 0x8A11
-
-	// Buffer usage hints
-	STREAM_DRAW  = 0x88E0
-	STATIC_DRAW  = 0x88E4
-	DYNAMIC_DRAW = 0x88E8
-
-	// Framebuffer
-	FRAMEBUFFER              = 0x8D40
-	READ_FRAMEBUFFER         = 0x8CA8
-	DRAW_FRAMEBUFFER         = 0x8CA9
-	RENDERBUFFER             = 0x8D41
-	COLOR_ATTACHMENT0        = 0x8CE0
-	DEPTH_ATTACHMENT         = 0x8D00
-	STENCIL_ATTACHMENT       = 0x8D20
-	DEPTH_STENCIL_ATTACHMENT = 0x821A
-	FRAMEBUFFER_COMPLETE     = 0x8CD5
-
-	// Renderbuffer
-	DEPTH_COMPONENT16  = 0x81A5
-	DEPTH_COMPONENT24  = 0x81A6
-	DEPTH_COMPONENT32F = 0x8CAC
-	DEPTH24_STENCIL8   = 0x88F0
-
-	// Blending
-	ZERO                     = 0
-	ONE                      = 1
-	SRC_COLOR                = 0x0300
-	ONE_MINUS_SRC_COLOR      = 0x0301
-	SRC_ALPHA                = 0x0302
-	ONE_MINUS_SRC_ALPHA      = 0x0303
-	DST_ALPHA                = 0x0304
-	ONE_MINUS_DST_ALPHA      = 0x0305
-	DST_COLOR                = 0x0306
-	ONE_MINUS_DST_COLOR      = 0x0307
-	SRC_ALPHA_SATURATE       = 0x0308
-	CONSTANT_COLOR           = 0x8001
-	ONE_MINUS_CONSTANT_COLOR = 0x8002
-	CONSTANT_ALPHA           = 0x8003
-	ONE_MINUS_CONSTANT_ALPHA = 0x8004
-
-	// Capabilities
-	BLEND        = 0x0BE2
-	CULL_FACE    = 0x0B44
-	DEPTH_TEST   = 0x0B71
-	SCISSOR_TEST = 0x0C11
-	STENCIL_TEST = 0x0B90
-	MULTISAMPLE  = 0x809D
-
-	// Shader types
-	VERTEX_SHADER   = 0x8B31
-	FRAGMENT_SHADER = 0x8B30
-	GEOMETRY_SHADER = 0x8DD9
-
-	// Shader / program params
-	DELETE_STATUS       = 0x8B80
-	COMPILE_STATUS      = 0x8B81
-	LINK_STATUS         = 0x8B82
-	VALIDATE_STATUS     = 0x8B83
-	INFO_LOG_LENGTH     = 0x8B84
-	ACTIVE_UNIFORMS     = 0x8B86
-	ACTIVE_ATTRIBUTES   = 0x8B89
-
-	// Data types (for vertex attribs etc.)
-	FLOAT_VEC2   = 0x8B50
-	FLOAT_VEC3   = 0x8B51
-	FLOAT_VEC4   = 0x8B52
-	INT_VEC2     = 0x8B53
-	INT_VEC3     = 0x8B54
-	INT_VEC4     = 0x8B55
-	BOOL         = 0x8B56
-	FLOAT_MAT2   = 0x8B5A
-	FLOAT_MAT3   = 0x8B5B
-	FLOAT_MAT4   = 0x8B5C
-	SAMPLER_2D   = 0x8B5E
-	SAMPLER_CUBE = 0x8B60
-
-	// Pixel storage
-	PACK_ALIGNMENT   = 0x0D05
+	TEXTURE16 = 0x84D0
+	TEXTURE17 = 0x84D1
+	TEXTURE18 = 0x84D2
+	TEXTURE19 = 0x84D3
+	TEXTURE2 = 0x84C2
+	TEXTURE20 = 0x84D4
+	TEXTURE21 = 0x84D5
+	TEXTURE22 = 0x84D6
+	TEXTURE23 = 0x84D7
+	TEXTURE24 = 0x84D8
+	TEXTURE25 = 0x84D9
+	TEXTURE26 = 0x84DA
+	TEXTURE27 = 0x84DB
+	TEXTURE28 = 0x84DC
+	TEXTURE29 = 0x84DD
+	TEXTURE3 = 0x84C3
+	TEXTURE30 = 0x84DE
+	TEXTURE31 = 0x84DF
+	TEXTURE4 = 0x84C4
+	TEXTURE5 = 0x84C5
+	TEXTURE6 = 0x84C6
+	TEXTURE7 = 0x84C7
+	TEXTURE8 = 0x84C8
+	TEXTURE9 = 0x84C9
+	TEXTURE_1D = 0x0DE0
+	TEXTURE_2D = 0x0DE1
+	TEXTURE_3D = 0x806F
+	TEXTURE_ALPHA_SIZE = 0x805F
+	TEXTURE_BASE_LEVEL = 0x813C
+	TEXTURE_BINDING_1D = 0x8068
+	TEXTURE_BINDING_2D = 0x8069
+	TEXTURE_BINDING_3D = 0x806A
+	TEXTURE_BINDING_CUBE_MAP = 0x8514
+	TEXTURE_BIT = 0x00040000
+	TEXTURE_BLUE_SIZE = 0x805E
+	TEXTURE_BORDER = 0x1005
+	TEXTURE_BORDER_COLOR = 0x1004
+	TEXTURE_COMPARE_FUNC = 0x884D
+	TEXTURE_COMPARE_MODE = 0x884C
+	TEXTURE_COMPONENTS = 0x1003
+	TEXTURE_COMPRESSED = 0x86A1
+	TEXTURE_COMPRESSED_IMAGE_SIZE = 0x86A0
+	TEXTURE_COMPRESSION_HINT = 0x84EF
+	TEXTURE_COORD_ARRAY = 0x8078
+	TEXTURE_COORD_ARRAY_BUFFER_BINDING = 0x889A
+	TEXTURE_COORD_ARRAY_POINTER = 0x8092
+	TEXTURE_COORD_ARRAY_SIZE = 0x8088
+	TEXTURE_COORD_ARRAY_STRIDE = 0x808A
+	TEXTURE_COORD_ARRAY_TYPE = 0x8089
+	TEXTURE_CUBE_MAP = 0x8513
+	TEXTURE_CUBE_MAP_NEGATIVE_X = 0x8516
+	TEXTURE_CUBE_MAP_NEGATIVE_Y = 0x8518
+	TEXTURE_CUBE_MAP_NEGATIVE_Z = 0x851A
+	TEXTURE_CUBE_MAP_POSITIVE_X = 0x8515
+	TEXTURE_CUBE_MAP_POSITIVE_Y = 0x8517
+	TEXTURE_CUBE_MAP_POSITIVE_Z = 0x8519
+	TEXTURE_DEPTH = 0x8071
+	TEXTURE_DEPTH_SIZE = 0x884A
+	TEXTURE_ENV = 0x2300
+	TEXTURE_ENV_COLOR = 0x2201
+	TEXTURE_ENV_MODE = 0x2200
+	TEXTURE_FILTER_CONTROL = 0x8500
+	TEXTURE_GEN_MODE = 0x2500
+	TEXTURE_GEN_Q = 0x0C63
+	TEXTURE_GEN_R = 0x0C62
+	TEXTURE_GEN_S = 0x0C60
+	TEXTURE_GEN_T = 0x0C61
+	TEXTURE_GREEN_SIZE = 0x805D
+	TEXTURE_HEIGHT = 0x1001
+	TEXTURE_INTENSITY_SIZE = 0x8061
+	TEXTURE_INTERNAL_FORMAT = 0x1003
+	TEXTURE_LOD_BIAS = 0x8501
+	TEXTURE_LUMINANCE_SIZE = 0x8060
+	TEXTURE_MAG_FILTER = 0x2800
+	TEXTURE_MATRIX = 0x0BA8
+	TEXTURE_MAX_LEVEL = 0x813D
+	TEXTURE_MAX_LOD = 0x813B
+	TEXTURE_MIN_FILTER = 0x2801
+	TEXTURE_MIN_LOD = 0x813A
+	TEXTURE_PRIORITY = 0x8066
+	TEXTURE_RED_SIZE = 0x805C
+	TEXTURE_RESIDENT = 0x8067
+	TEXTURE_STACK_DEPTH = 0x0BA5
+	TEXTURE_WIDTH = 0x1000
+	TEXTURE_WRAP_R = 0x8072
+	TEXTURE_WRAP_S = 0x2802
+	TEXTURE_WRAP_T = 0x2803
+	TRANSFORM_BIT = 0x00001000
+	TRANSPOSE_COLOR_MATRIX = 0x84E6
+	TRANSPOSE_MODELVIEW_MATRIX = 0x84E3
+	TRANSPOSE_PROJECTION_MATRIX = 0x84E4
+	TRANSPOSE_TEXTURE_MATRIX = 0x84E5
+	TRIANGLES = 0x0004
+	TRIANGLE_FAN = 0x0006
+	TRIANGLE_STRIP = 0x0005
+	TRUE = 1
 	UNPACK_ALIGNMENT = 0x0CF5
-
-	// Read buffer
-	FRONT = 0x0404
-	BACK  = 0x0405
-
-	// Polygon mode
-	FRONT_AND_BACK = 0x0408
-	FILL           = 0x1B02
-	LINE           = 0x1B01
-	POINT          = 0x1B00
+	UNPACK_IMAGE_HEIGHT = 0x806E
+	UNPACK_LSB_FIRST = 0x0CF1
+	UNPACK_ROW_LENGTH = 0x0CF2
+	UNPACK_SKIP_IMAGES = 0x806D
+	UNPACK_SKIP_PIXELS = 0x0CF4
+	UNPACK_SKIP_ROWS = 0x0CF3
+	UNPACK_SWAP_BYTES = 0x0CF0
+	UNSIGNED_BYTE = 0x1401
+	UNSIGNED_BYTE_2_3_3_REV = 0x8362
+	UNSIGNED_BYTE_3_3_2 = 0x8032
+	UNSIGNED_INT = 0x1405
+	UNSIGNED_INT_10_10_10_2 = 0x8036
+	UNSIGNED_INT_2_10_10_10_REV = 0x8368
+	UNSIGNED_INT_8_8_8_8 = 0x8035
+	UNSIGNED_INT_8_8_8_8_REV = 0x8367
+	UNSIGNED_SHORT = 0x1403
+	UNSIGNED_SHORT_1_5_5_5_REV = 0x8366
+	UNSIGNED_SHORT_4_4_4_4 = 0x8033
+	UNSIGNED_SHORT_4_4_4_4_REV = 0x8365
+	UNSIGNED_SHORT_5_5_5_1 = 0x8034
+	UNSIGNED_SHORT_5_6_5 = 0x8363
+	UNSIGNED_SHORT_5_6_5_REV = 0x8364
+	UPPER_LEFT = 0x8CA2
+	V2F = 0x2A20
+	V3F = 0x2A21
+	VALIDATE_STATUS = 0x8B83
+	VENDOR = 0x1F00
+	VERSION = 0x1F02
+	VERTEX_ARRAY = 0x8074
+	VERTEX_ARRAY_BUFFER_BINDING = 0x8896
+	VERTEX_ARRAY_POINTER = 0x808E
+	VERTEX_ARRAY_SIZE = 0x807A
+	VERTEX_ARRAY_STRIDE = 0x807C
+	VERTEX_ARRAY_TYPE = 0x807B
+	VERTEX_ATTRIB_ARRAY_BUFFER_BINDING = 0x889F
+	VERTEX_ATTRIB_ARRAY_ENABLED = 0x8622
+	VERTEX_ATTRIB_ARRAY_NORMALIZED = 0x886A
+	VERTEX_ATTRIB_ARRAY_POINTER = 0x8645
+	VERTEX_ATTRIB_ARRAY_SIZE = 0x8623
+	VERTEX_ATTRIB_ARRAY_STRIDE = 0x8624
+	VERTEX_ATTRIB_ARRAY_TYPE = 0x8625
+	VERTEX_PROGRAM_POINT_SIZE = 0x8642
+	VERTEX_PROGRAM_TWO_SIDE = 0x8643
+	VERTEX_SHADER = 0x8B31
+	VIEWPORT = 0x0BA2
+	VIEWPORT_BIT = 0x00000800
+	WEIGHT_ARRAY_BUFFER_BINDING = 0x889E
+	WRITE_ONLY = 0x88B9
+	XOR = 0x1506
+	ZERO = 0
+	ZOOM_X = 0x0D16
+	ZOOM_Y = 0x0D17
 )
 
 // -----------------------------------------------------------------------------
-// Public wrapper functions — identical signatures to github.com/go-gl/gl/v2.1/gl
+// Functions
 // -----------------------------------------------------------------------------
 
-func ActiveTexture(texture uint32)            { gpActiveTexture(texture) }
-func AttachShader(program, shader uint32)      { gpAttachShader(program, shader) }
-func BindBuffer(target, buffer uint32)         { gpBindBuffer(target, buffer) }
-func BindFramebuffer(target, framebuffer uint32) { gpBindFramebuffer(target, framebuffer) }
-func BindRenderbuffer(target, renderbuffer uint32) { gpBindRenderbuffer(target, renderbuffer) }
-func BindTexture(target, texture uint32)       { gpBindTexture(target, texture) }
-func BindVertexArray(array uint32)             { gpBindVertexArray(array) }
-func BlendFunc(sfactor, dfactor uint32)        { gpBlendFunc(sfactor, dfactor) }
-
-func BufferData(target uint32, size int, data unsafe.Pointer, usage uint32) {
-	gpBufferData(target, size, data, usage)
-}
-func BufferSubData(target uint32, offset, size int, data unsafe.Pointer) {
-	gpBufferSubData(target, offset, size, data)
-}
-
-func Clear(mask uint32)                                  { gpClear(mask) }
-func ClearColor(red, green, blue, alpha float32)         { gpClearColor(red, green, blue, alpha) }
-func CompileShader(shader uint32)                        { gpCompileShader(shader) }
-func CreateProgram() uint32                              { return gpCreateProgram() }
-func CreateShader(xtype uint32) uint32                   { return gpCreateShader(xtype) }
-
-func DeleteBuffers(n int32, buffers *uint32)              { gpDeleteBuffers(n, buffers) }
-func DeleteFramebuffers(n int32, framebuffers *uint32)    { gpDeleteFramebuffers(n, framebuffers) }
-func DeleteProgram(program uint32)                        { gpDeleteProgram(program) }
-func DeleteRenderbuffers(n int32, renderbuffers *uint32)  { gpDeleteRenderbuffers(n, renderbuffers) }
-func DeleteShader(shader uint32)                          { gpDeleteShader(shader) }
-func DeleteTextures(n int32, textures *uint32)            { gpDeleteTextures(n, textures) }
-func DeleteVertexArrays(n int32, arrays *uint32)          { gpDeleteVertexArrays(n, arrays) }
-func Disable(cap uint32)                                  { gpDisable(cap) }
-func DrawArrays(mode uint32, first, count int32)          { gpDrawArrays(mode, first, count) }
-
-func DrawElements(mode uint32, count int32, xtype uint32, indices unsafe.Pointer) {
-	gpDrawElements(mode, count, xtype, indices)
-}
-
-func Enable(cap uint32)                              { gpEnable(cap) }
-func EnableVertexAttribArray(index uint32)           { gpEnableVertexAttribArray(index) }
-
-func FramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer uint32) {
-	gpFramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer)
-}
-func FramebufferTexture2D(target, attachment, textarget, texture uint32, level int32) {
-	gpFramebufferTexture2D(target, attachment, textarget, texture, level)
-}
-
-func GenBuffers(n int32, buffers *uint32)              { gpGenBuffers(n, buffers) }
-func GenFramebuffers(n int32, ids *uint32)             { gpGenFramebuffers(n, ids) }
-func GenRenderbuffers(n int32, renderbuffers *uint32)  { gpGenRenderbuffers(n, renderbuffers) }
-func GenTextures(n int32, textures *uint32)            { gpGenTextures(n, textures) }
-func GenVertexArrays(n int32, arrays *uint32)          { gpGenVertexArrays(n, arrays) }
-
-func GetAttribLocation(program uint32, name *uint8) int32 {
-	return gpGetAttribLocation(program, name)
-}
-func GetError() uint32                           { return gpGetError() }
-func GetIntegerv(pname uint32, data *int32)      { gpGetIntegerv(pname, data) }
-
-func GetProgramInfoLog(program uint32, bufSize int32, length *int32, infoLog *uint8) {
-	gpGetProgramInfoLog(program, bufSize, length, infoLog)
-}
-func GetProgramiv(program, pname uint32, params *int32) { gpGetProgramiv(program, pname, params) }
-
-func GetShaderInfoLog(shader uint32, bufSize int32, length *int32, infoLog *uint8) {
-	gpGetShaderInfoLog(shader, bufSize, length, infoLog)
-}
-func GetShaderiv(shader, pname uint32, params *int32) { gpGetShaderiv(shader, pname, params) }
-func GetString(name uint32) *uint8                    { return gpGetString(name) }
-
-func GetUniformLocation(program uint32, name *uint8) int32 {
-	return gpGetUniformLocation(program, name)
-}
-
-func LinkProgram(program uint32)                        { gpLinkProgram(program) }
-func PixelStorei(pname uint32, param int32)             { gpPixelStorei(pname, param) }
-func ReadBuffer(src uint32)                             { gpReadBuffer(src) }
-
-func ReadPixels(x, y, width, height int32, format, xtype uint32, pixels unsafe.Pointer) {
-	gpReadPixels(x, y, width, height, format, xtype, pixels)
-}
-
-func RenderbufferStorage(target, internalformat uint32, width, height int32) {
-	gpRenderbufferStorage(target, internalformat, width, height)
-}
-func Scissor(x, y, width, height int32) { gpScissor(x, y, width, height) }
-
-func ShaderSource(shader uint32, count int32, xstring **uint8, length *int32) {
-	gpShaderSource(shader, count, xstring, length)
-}
-
-func TexImage2D(target uint32, level, internalformat, width, height, border int32, format, xtype uint32, pixels unsafe.Pointer) {
-	gpTexImage2D(target, level, internalformat, width, height, border, format, xtype, pixels)
-}
-func TexParameteri(target, pname uint32, param int32) { gpTexParameteri(target, pname, param) }
-
-func Uniform1f(location int32, v0 float32)                    { gpUniform1f(location, v0) }
-func Uniform1i(location, v0 int32)                            { gpUniform1i(location, v0) }
-func Uniform2f(location int32, v0, v1 float32)                { gpUniform2f(location, v0, v1) }
-func Uniform4f(location int32, v0, v1, v2, v3 float32)        { gpUniform4f(location, v0, v1, v2, v3) }
-func UniformMatrix4fv(location, count int32, transpose bool, value *float32) {
-	gpUniformMatrix4fv(location, count, transpose, value)
-}
-
+func Accum(op uint32, value float32) { gpAccum(op, value) }
+func ActiveTexture(texture uint32) { gpActiveTexture(texture) }
+func AlphaFunc(xfunc uint32, ref float32) { gpAlphaFunc(xfunc, ref) }
+func AreTexturesResident(n int32, textures *uint32, residences *uint8) bool { return gpAreTexturesResident(n, textures, residences) }
+func ArrayElement(i int32) { gpArrayElement(i) }
+func AttachShader(program uint32, shader uint32) { gpAttachShader(program, shader) }
+func Begin(mode uint32) { gpBegin(mode) }
+func BeginQuery(target uint32, id uint32) { gpBeginQuery(target, id) }
+func BindAttribLocation(program uint32, index uint32, name *uint8) { gpBindAttribLocation(program, index, name) }
+func BindBuffer(target uint32, buffer uint32) { gpBindBuffer(target, buffer) }
+func BindFramebuffer(target uint32, framebuffer uint32) { gpBindFramebuffer(target, framebuffer) }
+func BindRenderbuffer(target uint32, renderbuffer uint32) { gpBindRenderbuffer(target, renderbuffer) }
+func BindTexture(target uint32, texture uint32) { gpBindTexture(target, texture) }
+func BindVertexArray(array uint32) { gpBindVertexArray(array) }
+func Bitmap(width int32, height int32, xorig float32, yorig float32, xmove float32, ymove float32, bitmap *uint8) { gpBitmap(width, height, xorig, yorig, xmove, ymove, bitmap) }
+func BlendColor(red float32, green float32, blue float32, alpha float32) { gpBlendColor(red, green, blue, alpha) }
+func BlendEquation(mode uint32) { gpBlendEquation(mode) }
+func BlendEquationSeparate(modeRGB uint32, modeAlpha uint32) { gpBlendEquationSeparate(modeRGB, modeAlpha) }
+func BlendFunc(sfactor uint32, dfactor uint32) { gpBlendFunc(sfactor, dfactor) }
+func BlendFuncSeparate(sfactorRGB uint32, dfactorRGB uint32, sfactorAlpha uint32, dfactorAlpha uint32) { gpBlendFuncSeparate(sfactorRGB, dfactorRGB, sfactorAlpha, dfactorAlpha) }
+func BufferData(target uint32, size int, data unsafe.Pointer, usage uint32) { gpBufferData(target, size, data, usage) }
+func BufferSubData(target uint32, offset int, size int, data unsafe.Pointer) { gpBufferSubData(target, offset, size, data) }
+func CallList(list uint32) { gpCallList(list) }
+func CallLists(n int32, xtype uint32, lists unsafe.Pointer) { gpCallLists(n, xtype, lists) }
+func CheckFramebufferStatus(target uint32) uint32 { return gpCheckFramebufferStatus(target) }
+func Clear(mask uint32) { gpClear(mask) }
+func ClearAccum(red float32, green float32, blue float32, alpha float32) { gpClearAccum(red, green, blue, alpha) }
+func ClearColor(red float32, green float32, blue float32, alpha float32) { gpClearColor(red, green, blue, alpha) }
+func ClearDepth(depth float64) { gpClearDepth(depth) }
+func ClearDepthf(d float32) { gpClearDepthf(d) }
+func ClearIndex(c float32) { gpClearIndex(c) }
+func ClearStencil(s int32) { gpClearStencil(s) }
+func ClientActiveTexture(texture uint32) { gpClientActiveTexture(texture) }
+func ClipPlane(plane uint32, equation *float64) { gpClipPlane(plane, equation) }
+func Color3b(red int8, green int8, blue int8) { gpColor3b(red, green, blue) }
+func Color3bv(v *int8) { gpColor3bv(v) }
+func Color3d(red float64, green float64, blue float64) { gpColor3d(red, green, blue) }
+func Color3dv(v *float64) { gpColor3dv(v) }
+func Color3f(red float32, green float32, blue float32) { gpColor3f(red, green, blue) }
+func Color3fv(v *float32) { gpColor3fv(v) }
+func Color3i(red int32, green int32, blue int32) { gpColor3i(red, green, blue) }
+func Color3iv(v *int32) { gpColor3iv(v) }
+func Color3s(red int16, green int16, blue int16) { gpColor3s(red, green, blue) }
+func Color3sv(v *int16) { gpColor3sv(v) }
+func Color3ub(red uint8, green uint8, blue uint8) { gpColor3ub(red, green, blue) }
+func Color3ubv(v *uint8) { gpColor3ubv(v) }
+func Color3ui(red uint32, green uint32, blue uint32) { gpColor3ui(red, green, blue) }
+func Color3uiv(v *uint32) { gpColor3uiv(v) }
+func Color3us(red uint16, green uint16, blue uint16) { gpColor3us(red, green, blue) }
+func Color3usv(v *uint16) { gpColor3usv(v) }
+func Color4b(red int8, green int8, blue int8, alpha int8) { gpColor4b(red, green, blue, alpha) }
+func Color4bv(v *int8) { gpColor4bv(v) }
+func Color4d(red float64, green float64, blue float64, alpha float64) { gpColor4d(red, green, blue, alpha) }
+func Color4dv(v *float64) { gpColor4dv(v) }
+func Color4f(red float32, green float32, blue float32, alpha float32) { gpColor4f(red, green, blue, alpha) }
+func Color4fv(v *float32) { gpColor4fv(v) }
+func Color4i(red int32, green int32, blue int32, alpha int32) { gpColor4i(red, green, blue, alpha) }
+func Color4iv(v *int32) { gpColor4iv(v) }
+func Color4s(red int16, green int16, blue int16, alpha int16) { gpColor4s(red, green, blue, alpha) }
+func Color4sv(v *int16) { gpColor4sv(v) }
+func Color4ub(red uint8, green uint8, blue uint8, alpha uint8) { gpColor4ub(red, green, blue, alpha) }
+func Color4ubv(v *uint8) { gpColor4ubv(v) }
+func Color4ui(red uint32, green uint32, blue uint32, alpha uint32) { gpColor4ui(red, green, blue, alpha) }
+func Color4uiv(v *uint32) { gpColor4uiv(v) }
+func Color4us(red uint16, green uint16, blue uint16, alpha uint16) { gpColor4us(red, green, blue, alpha) }
+func Color4usv(v *uint16) { gpColor4usv(v) }
+func ColorMask(red bool, green bool, blue bool, alpha bool) { gpColorMask(red, green, blue, alpha) }
+func ColorMaterial(face uint32, mode uint32) { gpColorMaterial(face, mode) }
+func ColorPointer(size int32, xtype uint32, stride int32, pointer unsafe.Pointer) { gpColorPointer(size, xtype, stride, pointer) }
+func CompileShader(shader uint32) { gpCompileShader(shader) }
+func CompressedTexImage1D(target uint32, level int32, internalformat uint32, width int32, border int32, imageSize int32, data unsafe.Pointer) { gpCompressedTexImage1D(target, level, internalformat, width, border, imageSize, data) }
+func CompressedTexImage2D(target uint32, level int32, internalformat uint32, width int32, height int32, border int32, imageSize int32, data unsafe.Pointer) { gpCompressedTexImage2D(target, level, internalformat, width, height, border, imageSize, data) }
+func CompressedTexImage3D(target uint32, level int32, internalformat uint32, width int32, height int32, depth int32, border int32, imageSize int32, data unsafe.Pointer) { gpCompressedTexImage3D(target, level, internalformat, width, height, depth, border, imageSize, data) }
+func CompressedTexSubImage1D(target uint32, level int32, xoffset int32, width int32, format uint32, imageSize int32, data unsafe.Pointer) { gpCompressedTexSubImage1D(target, level, xoffset, width, format, imageSize, data) }
+func CompressedTexSubImage2D(target uint32, level int32, xoffset int32, yoffset int32, width int32, height int32, format uint32, imageSize int32, data unsafe.Pointer) { gpCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, imageSize, data) }
+func CompressedTexSubImage3D(target uint32, level int32, xoffset int32, yoffset int32, zoffset int32, width int32, height int32, depth int32, format uint32, imageSize int32, data unsafe.Pointer) { gpCompressedTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data) }
+func CopyPixels(x int32, y int32, width int32, height int32, xtype uint32) { gpCopyPixels(x, y, width, height, xtype) }
+func CopyTexImage1D(target uint32, level int32, internalformat uint32, x int32, y int32, width int32, border int32) { gpCopyTexImage1D(target, level, internalformat, x, y, width, border) }
+func CopyTexImage2D(target uint32, level int32, internalformat uint32, x int32, y int32, width int32, height int32, border int32) { gpCopyTexImage2D(target, level, internalformat, x, y, width, height, border) }
+func CopyTexSubImage1D(target uint32, level int32, xoffset int32, x int32, y int32, width int32) { gpCopyTexSubImage1D(target, level, xoffset, x, y, width) }
+func CopyTexSubImage2D(target uint32, level int32, xoffset int32, yoffset int32, x int32, y int32, width int32, height int32) { gpCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height) }
+func CopyTexSubImage3D(target uint32, level int32, xoffset int32, yoffset int32, zoffset int32, x int32, y int32, width int32, height int32) { gpCopyTexSubImage3D(target, level, xoffset, yoffset, zoffset, x, y, width, height) }
+func CreateProgram() uint32 { return gpCreateProgram() }
+func CreateShader(xtype uint32) uint32 { return gpCreateShader(xtype) }
+func CullFace(mode uint32) { gpCullFace(mode) }
+func DeleteBuffers(n int32, buffers *uint32) { gpDeleteBuffers(n, buffers) }
+func DeleteFramebuffers(n int32, framebuffers *uint32) { gpDeleteFramebuffers(n, framebuffers) }
+func DeleteLists(list uint32, xrange int32) { gpDeleteLists(list, xrange) }
+func DeleteProgram(program uint32) { gpDeleteProgram(program) }
+func DeleteQueries(n int32, ids *uint32) { gpDeleteQueries(n, ids) }
+func DeleteRenderbuffers(n int32, renderbuffers *uint32) { gpDeleteRenderbuffers(n, renderbuffers) }
+func DeleteShader(shader uint32) { gpDeleteShader(shader) }
+func DeleteTextures(n int32, textures *uint32) { gpDeleteTextures(n, textures) }
+func DeleteVertexArrays(n int32, arrays *uint32) { gpDeleteVertexArrays(n, arrays) }
+func DepthFunc(xfunc uint32) { gpDepthFunc(xfunc) }
+func DepthMask(flag bool) { gpDepthMask(flag) }
+func DepthRange(n float64, f float64) { gpDepthRange(n, f) }
+func DetachShader(program uint32, shader uint32) { gpDetachShader(program, shader) }
+func Disable(xcap uint32) { gpDisable(xcap) }
+func DisableClientState(array uint32) { gpDisableClientState(array) }
+func DisableVertexAttribArray(index uint32) { gpDisableVertexAttribArray(index) }
+func DrawArrays(mode uint32, first int32, count int32) { gpDrawArrays(mode, first, count) }
+func DrawBuffer(buf uint32) { gpDrawBuffer(buf) }
+func DrawBuffers(n int32, bufs *uint32) { gpDrawBuffers(n, bufs) }
+func DrawElements(mode uint32, count int32, xtype uint32, indices unsafe.Pointer) { gpDrawElements(mode, count, xtype, indices) }
+func DrawPixels(width int32, height int32, format uint32, xtype uint32, pixels unsafe.Pointer) { gpDrawPixels(width, height, format, xtype, pixels) }
+func DrawRangeElements(mode uint32, start uint32, end uint32, count int32, xtype uint32, indices unsafe.Pointer) { gpDrawRangeElements(mode, start, end, count, xtype, indices) }
+func EdgeFlag(flag bool) { gpEdgeFlag(flag) }
+func EdgeFlagPointer(stride int32, pointer unsafe.Pointer) { gpEdgeFlagPointer(stride, pointer) }
+func EdgeFlagv(flag *uint8) { gpEdgeFlagv(flag) }
+func Enable(xcap uint32) { gpEnable(xcap) }
+func EnableClientState(array uint32) { gpEnableClientState(array) }
+func EnableVertexAttribArray(index uint32) { gpEnableVertexAttribArray(index) }
+func End() { gpEnd() }
+func EndList() { gpEndList() }
+func EndQuery(target uint32) { gpEndQuery(target) }
+func EvalCoord1d(u float64) { gpEvalCoord1d(u) }
+func EvalCoord1dv(u *float64) { gpEvalCoord1dv(u) }
+func EvalCoord1f(u float32) { gpEvalCoord1f(u) }
+func EvalCoord1fv(u *float32) { gpEvalCoord1fv(u) }
+func EvalCoord2d(u float64, v float64) { gpEvalCoord2d(u, v) }
+func EvalCoord2dv(u *float64) { gpEvalCoord2dv(u) }
+func EvalCoord2f(u float32, v float32) { gpEvalCoord2f(u, v) }
+func EvalCoord2fv(u *float32) { gpEvalCoord2fv(u) }
+func EvalMesh1(mode uint32, i1 int32, i2 int32) { gpEvalMesh1(mode, i1, i2) }
+func EvalMesh2(mode uint32, i1 int32, i2 int32, j1 int32, j2 int32) { gpEvalMesh2(mode, i1, i2, j1, j2) }
+func EvalPoint1(i int32) { gpEvalPoint1(i) }
+func EvalPoint2(i int32, j int32) { gpEvalPoint2(i, j) }
+func FeedbackBuffer(size int32, xtype uint32, buffer *float32) { gpFeedbackBuffer(size, xtype, buffer) }
+func Finish() { gpFinish() }
+func Flush() { gpFlush() }
+func FogCoordPointer(xtype uint32, stride int32, pointer unsafe.Pointer) { gpFogCoordPointer(xtype, stride, pointer) }
+func FogCoordd(coord float64) { gpFogCoordd(coord) }
+func FogCoorddv(coord *float64) { gpFogCoorddv(coord) }
+func FogCoordf(coord float32) { gpFogCoordf(coord) }
+func FogCoordfv(coord *float32) { gpFogCoordfv(coord) }
+func Fogf(pname uint32, param float32) { gpFogf(pname, param) }
+func Fogfv(pname uint32, params *float32) { gpFogfv(pname, params) }
+func Fogi(pname uint32, param int32) { gpFogi(pname, param) }
+func Fogiv(pname uint32, params *int32) { gpFogiv(pname, params) }
+func FramebufferRenderbuffer(target uint32, attachment uint32, renderbuffertarget uint32, renderbuffer uint32) { gpFramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer) }
+func FramebufferTexture2D(target uint32, attachment uint32, textarget uint32, texture uint32, level int32) { gpFramebufferTexture2D(target, attachment, textarget, texture, level) }
+func FrontFace(mode uint32) { gpFrontFace(mode) }
+func Frustum(left float64, right float64, bottom float64, top float64, zNear float64, zFar float64) { gpFrustum(left, right, bottom, top, zNear, zFar) }
+func GenBuffers(n int32, buffers *uint32) { gpGenBuffers(n, buffers) }
+func GenFramebuffers(n int32, framebuffers *uint32) { gpGenFramebuffers(n, framebuffers) }
+func GenLists(xrange int32) uint32 { return gpGenLists(xrange) }
+func GenQueries(n int32, ids *uint32) { gpGenQueries(n, ids) }
+func GenRenderbuffers(n int32, renderbuffers *uint32) { gpGenRenderbuffers(n, renderbuffers) }
+func GenTextures(n int32, textures *uint32) { gpGenTextures(n, textures) }
+func GenVertexArrays(n int32, arrays *uint32) { gpGenVertexArrays(n, arrays) }
+func GenerateMipmap(target uint32) { gpGenerateMipmap(target) }
+func GetActiveAttrib(program uint32, index uint32, bufSize int32, length *int32, size *int32, xtype *uint32, name *uint8) { gpGetActiveAttrib(program, index, bufSize, length, size, xtype, name) }
+func GetActiveUniform(program uint32, index uint32, bufSize int32, length *int32, size *int32, xtype *uint32, name *uint8) { gpGetActiveUniform(program, index, bufSize, length, size, xtype, name) }
+func GetAttachedShaders(program uint32, maxCount int32, count *int32, shaders *uint32) { gpGetAttachedShaders(program, maxCount, count, shaders) }
+func GetAttribLocation(program uint32, name *uint8) int32 { return gpGetAttribLocation(program, name) }
+func GetBooleanv(pname uint32, data *uint8) { gpGetBooleanv(pname, data) }
+func GetBufferParameteriv(target uint32, pname uint32, params *int32) { gpGetBufferParameteriv(target, pname, params) }
+func GetBufferPointerv(target uint32, pname uint32, params unsafe.Pointer) { gpGetBufferPointerv(target, pname, params) }
+func GetBufferSubData(target uint32, offset int, size int, data unsafe.Pointer) { gpGetBufferSubData(target, offset, size, data) }
+func GetClipPlane(plane uint32, equation *float64) { gpGetClipPlane(plane, equation) }
+func GetCompressedTexImage(target uint32, level int32, img unsafe.Pointer) { gpGetCompressedTexImage(target, level, img) }
+func GetDoublev(pname uint32, data *float64) { gpGetDoublev(pname, data) }
+func GetError() uint32 { return gpGetError() }
+func GetFloatv(pname uint32, data *float32) { gpGetFloatv(pname, data) }
+func GetIntegerv(pname uint32, data *int32) { gpGetIntegerv(pname, data) }
+func GetLightfv(light uint32, pname uint32, params *float32) { gpGetLightfv(light, pname, params) }
+func GetLightiv(light uint32, pname uint32, params *int32) { gpGetLightiv(light, pname, params) }
+func GetMapdv(target uint32, query uint32, v *float64) { gpGetMapdv(target, query, v) }
+func GetMapfv(target uint32, query uint32, v *float32) { gpGetMapfv(target, query, v) }
+func GetMapiv(target uint32, query uint32, v *int32) { gpGetMapiv(target, query, v) }
+func GetMaterialfv(face uint32, pname uint32, params *float32) { gpGetMaterialfv(face, pname, params) }
+func GetMaterialiv(face uint32, pname uint32, params *int32) { gpGetMaterialiv(face, pname, params) }
+func GetPixelMapfv(xmap uint32, values *float32) { gpGetPixelMapfv(xmap, values) }
+func GetPixelMapuiv(xmap uint32, values *uint32) { gpGetPixelMapuiv(xmap, values) }
+func GetPixelMapusv(xmap uint32, values *uint16) { gpGetPixelMapusv(xmap, values) }
+func GetPointerv(pname uint32, params unsafe.Pointer) { gpGetPointerv(pname, params) }
+func GetPolygonStipple(mask *uint8) { gpGetPolygonStipple(mask) }
+func GetProgramInfoLog(program uint32, bufSize int32, length *int32, infoLog *uint8) { gpGetProgramInfoLog(program, bufSize, length, infoLog) }
+func GetProgramiv(program uint32, pname uint32, params *int32) { gpGetProgramiv(program, pname, params) }
+func GetQueryObjectiv(id uint32, pname uint32, params *int32) { gpGetQueryObjectiv(id, pname, params) }
+func GetQueryObjectuiv(id uint32, pname uint32, params *uint32) { gpGetQueryObjectuiv(id, pname, params) }
+func GetQueryiv(target uint32, pname uint32, params *int32) { gpGetQueryiv(target, pname, params) }
+func GetShaderInfoLog(shader uint32, bufSize int32, length *int32, infoLog *uint8) { gpGetShaderInfoLog(shader, bufSize, length, infoLog) }
+func GetShaderSource(shader uint32, bufSize int32, length *int32, source *uint8) { gpGetShaderSource(shader, bufSize, length, source) }
+func GetShaderiv(shader uint32, pname uint32, params *int32) { gpGetShaderiv(shader, pname, params) }
+func GetString(name uint32) *uint8 { return gpGetString(name) }
+func GetStringi(name uint32, index uint32) *uint8 { return gpGetStringi(name, index) }
+func GetTexEnvfv(target uint32, pname uint32, params *float32) { gpGetTexEnvfv(target, pname, params) }
+func GetTexEnviv(target uint32, pname uint32, params *int32) { gpGetTexEnviv(target, pname, params) }
+func GetTexGendv(coord uint32, pname uint32, params *float64) { gpGetTexGendv(coord, pname, params) }
+func GetTexGenfv(coord uint32, pname uint32, params *float32) { gpGetTexGenfv(coord, pname, params) }
+func GetTexGeniv(coord uint32, pname uint32, params *int32) { gpGetTexGeniv(coord, pname, params) }
+func GetTexImage(target uint32, level int32, format uint32, xtype uint32, pixels unsafe.Pointer) { gpGetTexImage(target, level, format, xtype, pixels) }
+func GetTexLevelParameterfv(target uint32, level int32, pname uint32, params *float32) { gpGetTexLevelParameterfv(target, level, pname, params) }
+func GetTexLevelParameteriv(target uint32, level int32, pname uint32, params *int32) { gpGetTexLevelParameteriv(target, level, pname, params) }
+func GetTexParameterfv(target uint32, pname uint32, params *float32) { gpGetTexParameterfv(target, pname, params) }
+func GetTexParameteriv(target uint32, pname uint32, params *int32) { gpGetTexParameteriv(target, pname, params) }
+func GetUniformLocation(program uint32, name *uint8) int32 { return gpGetUniformLocation(program, name) }
+func GetUniformfv(program uint32, location int32, params *float32) { gpGetUniformfv(program, location, params) }
+func GetUniformiv(program uint32, location int32, params *int32) { gpGetUniformiv(program, location, params) }
+func GetVertexAttribPointerv(index uint32, pname uint32, pointer unsafe.Pointer) { gpGetVertexAttribPointerv(index, pname, pointer) }
+func GetVertexAttribdv(index uint32, pname uint32, params *float64) { gpGetVertexAttribdv(index, pname, params) }
+func GetVertexAttribfv(index uint32, pname uint32, params *float32) { gpGetVertexAttribfv(index, pname, params) }
+func GetVertexAttribiv(index uint32, pname uint32, params *int32) { gpGetVertexAttribiv(index, pname, params) }
+func Hint(target uint32, mode uint32) { gpHint(target, mode) }
+func IndexMask(mask uint32) { gpIndexMask(mask) }
+func IndexPointer(xtype uint32, stride int32, pointer unsafe.Pointer) { gpIndexPointer(xtype, stride, pointer) }
+func Indexd(c float64) { gpIndexd(c) }
+func Indexdv(c *float64) { gpIndexdv(c) }
+func Indexf(c float32) { gpIndexf(c) }
+func Indexfv(c *float32) { gpIndexfv(c) }
+func Indexi(c int32) { gpIndexi(c) }
+func Indexiv(c *int32) { gpIndexiv(c) }
+func Indexs(c int16) { gpIndexs(c) }
+func Indexsv(c *int16) { gpIndexsv(c) }
+func Indexub(c uint8) { gpIndexub(c) }
+func Indexubv(c *uint8) { gpIndexubv(c) }
+func InitNames() { gpInitNames() }
+func InterleavedArrays(format uint32, stride int32, pointer unsafe.Pointer) { gpInterleavedArrays(format, stride, pointer) }
+func IsBuffer(buffer uint32) bool { return gpIsBuffer(buffer) }
+func IsEnabled(xcap uint32) bool { return gpIsEnabled(xcap) }
+func IsList(list uint32) bool { return gpIsList(list) }
+func IsProgram(program uint32) bool { return gpIsProgram(program) }
+func IsQuery(id uint32) bool { return gpIsQuery(id) }
+func IsShader(shader uint32) bool { return gpIsShader(shader) }
+func IsTexture(texture uint32) bool { return gpIsTexture(texture) }
+func IsVertexArray(array uint32) bool { return gpIsVertexArray(array) }
+func LightModelf(pname uint32, param float32) { gpLightModelf(pname, param) }
+func LightModelfv(pname uint32, params *float32) { gpLightModelfv(pname, params) }
+func LightModeli(pname uint32, param int32) { gpLightModeli(pname, param) }
+func LightModeliv(pname uint32, params *int32) { gpLightModeliv(pname, params) }
+func Lightf(light uint32, pname uint32, param float32) { gpLightf(light, pname, param) }
+func Lightfv(light uint32, pname uint32, params *float32) { gpLightfv(light, pname, params) }
+func Lighti(light uint32, pname uint32, param int32) { gpLighti(light, pname, param) }
+func Lightiv(light uint32, pname uint32, params *int32) { gpLightiv(light, pname, params) }
+func LineStipple(factor int32, pattern uint16) { gpLineStipple(factor, pattern) }
+func LineWidth(width float32) { gpLineWidth(width) }
+func LinkProgram(program uint32) { gpLinkProgram(program) }
+func ListBase(base uint32) { gpListBase(base) }
+func LoadIdentity() { gpLoadIdentity() }
+func LoadMatrixd(m *float64) { gpLoadMatrixd(m) }
+func LoadMatrixf(m *float32) { gpLoadMatrixf(m) }
+func LoadName(name uint32) { gpLoadName(name) }
+func LoadTransposeMatrixd(m *float64) { gpLoadTransposeMatrixd(m) }
+func LoadTransposeMatrixf(m *float32) { gpLoadTransposeMatrixf(m) }
+func LogicOp(opcode uint32) { gpLogicOp(opcode) }
+func Map1d(target uint32, u1 float64, u2 float64, stride int32, order int32, points *float64) { gpMap1d(target, u1, u2, stride, order, points) }
+func Map1f(target uint32, u1 float32, u2 float32, stride int32, order int32, points *float32) { gpMap1f(target, u1, u2, stride, order, points) }
+func Map2d(target uint32, u1 float64, u2 float64, ustride int32, uorder int32, v1 float64, v2 float64, vstride int32, vorder int32, points *float64) { gpMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points) }
+func Map2f(target uint32, u1 float32, u2 float32, ustride int32, uorder int32, v1 float32, v2 float32, vstride int32, vorder int32, points *float32) { gpMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points) }
+func MapBuffer(target uint32, access uint32) unsafe.Pointer { return gpMapBuffer(target, access) }
+func MapGrid1d(un int32, u1 float64, u2 float64) { gpMapGrid1d(un, u1, u2) }
+func MapGrid1f(un int32, u1 float32, u2 float32) { gpMapGrid1f(un, u1, u2) }
+func MapGrid2d(un int32, u1 float64, u2 float64, vn int32, v1 float64, v2 float64) { gpMapGrid2d(un, u1, u2, vn, v1, v2) }
+func MapGrid2f(un int32, u1 float32, u2 float32, vn int32, v1 float32, v2 float32) { gpMapGrid2f(un, u1, u2, vn, v1, v2) }
+func Materialf(face uint32, pname uint32, param float32) { gpMaterialf(face, pname, param) }
+func Materialfv(face uint32, pname uint32, params *float32) { gpMaterialfv(face, pname, params) }
+func Materiali(face uint32, pname uint32, param int32) { gpMateriali(face, pname, param) }
+func Materialiv(face uint32, pname uint32, params *int32) { gpMaterialiv(face, pname, params) }
+func MatrixMode(mode uint32) { gpMatrixMode(mode) }
+func MultMatrixd(m *float64) { gpMultMatrixd(m) }
+func MultMatrixf(m *float32) { gpMultMatrixf(m) }
+func MultTransposeMatrixd(m *float64) { gpMultTransposeMatrixd(m) }
+func MultTransposeMatrixf(m *float32) { gpMultTransposeMatrixf(m) }
+func MultiDrawArrays(mode uint32, first *int32, count *int32, drawcount int32) { gpMultiDrawArrays(mode, first, count, drawcount) }
+func MultiDrawElements(mode uint32, count *int32, xtype uint32, indices unsafe.Pointer, drawcount int32) { gpMultiDrawElements(mode, count, xtype, indices, drawcount) }
+func MultiTexCoord1d(target uint32, s float64) { gpMultiTexCoord1d(target, s) }
+func MultiTexCoord1dv(target uint32, v *float64) { gpMultiTexCoord1dv(target, v) }
+func MultiTexCoord1f(target uint32, s float32) { gpMultiTexCoord1f(target, s) }
+func MultiTexCoord1fv(target uint32, v *float32) { gpMultiTexCoord1fv(target, v) }
+func MultiTexCoord1i(target uint32, s int32) { gpMultiTexCoord1i(target, s) }
+func MultiTexCoord1iv(target uint32, v *int32) { gpMultiTexCoord1iv(target, v) }
+func MultiTexCoord1s(target uint32, s int16) { gpMultiTexCoord1s(target, s) }
+func MultiTexCoord1sv(target uint32, v *int16) { gpMultiTexCoord1sv(target, v) }
+func MultiTexCoord2d(target uint32, s float64, t float64) { gpMultiTexCoord2d(target, s, t) }
+func MultiTexCoord2dv(target uint32, v *float64) { gpMultiTexCoord2dv(target, v) }
+func MultiTexCoord2f(target uint32, s float32, t float32) { gpMultiTexCoord2f(target, s, t) }
+func MultiTexCoord2fv(target uint32, v *float32) { gpMultiTexCoord2fv(target, v) }
+func MultiTexCoord2i(target uint32, s int32, t int32) { gpMultiTexCoord2i(target, s, t) }
+func MultiTexCoord2iv(target uint32, v *int32) { gpMultiTexCoord2iv(target, v) }
+func MultiTexCoord2s(target uint32, s int16, t int16) { gpMultiTexCoord2s(target, s, t) }
+func MultiTexCoord2sv(target uint32, v *int16) { gpMultiTexCoord2sv(target, v) }
+func MultiTexCoord3d(target uint32, s float64, t float64, r float64) { gpMultiTexCoord3d(target, s, t, r) }
+func MultiTexCoord3dv(target uint32, v *float64) { gpMultiTexCoord3dv(target, v) }
+func MultiTexCoord3f(target uint32, s float32, t float32, r float32) { gpMultiTexCoord3f(target, s, t, r) }
+func MultiTexCoord3fv(target uint32, v *float32) { gpMultiTexCoord3fv(target, v) }
+func MultiTexCoord3i(target uint32, s int32, t int32, r int32) { gpMultiTexCoord3i(target, s, t, r) }
+func MultiTexCoord3iv(target uint32, v *int32) { gpMultiTexCoord3iv(target, v) }
+func MultiTexCoord3s(target uint32, s int16, t int16, r int16) { gpMultiTexCoord3s(target, s, t, r) }
+func MultiTexCoord3sv(target uint32, v *int16) { gpMultiTexCoord3sv(target, v) }
+func MultiTexCoord4d(target uint32, s float64, t float64, r float64, q float64) { gpMultiTexCoord4d(target, s, t, r, q) }
+func MultiTexCoord4dv(target uint32, v *float64) { gpMultiTexCoord4dv(target, v) }
+func MultiTexCoord4f(target uint32, s float32, t float32, r float32, q float32) { gpMultiTexCoord4f(target, s, t, r, q) }
+func MultiTexCoord4fv(target uint32, v *float32) { gpMultiTexCoord4fv(target, v) }
+func MultiTexCoord4i(target uint32, s int32, t int32, r int32, q int32) { gpMultiTexCoord4i(target, s, t, r, q) }
+func MultiTexCoord4iv(target uint32, v *int32) { gpMultiTexCoord4iv(target, v) }
+func MultiTexCoord4s(target uint32, s int16, t int16, r int16, q int16) { gpMultiTexCoord4s(target, s, t, r, q) }
+func MultiTexCoord4sv(target uint32, v *int16) { gpMultiTexCoord4sv(target, v) }
+func NewList(list uint32, mode uint32) { gpNewList(list, mode) }
+func Normal3b(nx int8, ny int8, nz int8) { gpNormal3b(nx, ny, nz) }
+func Normal3bv(v *int8) { gpNormal3bv(v) }
+func Normal3d(nx float64, ny float64, nz float64) { gpNormal3d(nx, ny, nz) }
+func Normal3dv(v *float64) { gpNormal3dv(v) }
+func Normal3f(nx float32, ny float32, nz float32) { gpNormal3f(nx, ny, nz) }
+func Normal3fv(v *float32) { gpNormal3fv(v) }
+func Normal3i(nx int32, ny int32, nz int32) { gpNormal3i(nx, ny, nz) }
+func Normal3iv(v *int32) { gpNormal3iv(v) }
+func Normal3s(nx int16, ny int16, nz int16) { gpNormal3s(nx, ny, nz) }
+func Normal3sv(v *int16) { gpNormal3sv(v) }
+func NormalPointer(xtype uint32, stride int32, pointer unsafe.Pointer) { gpNormalPointer(xtype, stride, pointer) }
+func Ortho(left float64, right float64, bottom float64, top float64, zNear float64, zFar float64) { gpOrtho(left, right, bottom, top, zNear, zFar) }
+func PassThrough(token float32) { gpPassThrough(token) }
+func PixelMapfv(xmap uint32, mapsize int32, values *float32) { gpPixelMapfv(xmap, mapsize, values) }
+func PixelMapuiv(xmap uint32, mapsize int32, values *uint32) { gpPixelMapuiv(xmap, mapsize, values) }
+func PixelMapusv(xmap uint32, mapsize int32, values *uint16) { gpPixelMapusv(xmap, mapsize, values) }
+func PixelStoref(pname uint32, param float32) { gpPixelStoref(pname, param) }
+func PixelStorei(pname uint32, param int32) { gpPixelStorei(pname, param) }
+func PixelTransferf(pname uint32, param float32) { gpPixelTransferf(pname, param) }
+func PixelTransferi(pname uint32, param int32) { gpPixelTransferi(pname, param) }
+func PixelZoom(xfactor float32, yfactor float32) { gpPixelZoom(xfactor, yfactor) }
+func PointParameterf(pname uint32, param float32) { gpPointParameterf(pname, param) }
+func PointParameterfv(pname uint32, params *float32) { gpPointParameterfv(pname, params) }
+func PointParameteri(pname uint32, param int32) { gpPointParameteri(pname, param) }
+func PointParameteriv(pname uint32, params *int32) { gpPointParameteriv(pname, params) }
+func PointSize(size float32) { gpPointSize(size) }
+func PolygonMode(face uint32, mode uint32) { gpPolygonMode(face, mode) }
+func PolygonOffset(factor float32, units float32) { gpPolygonOffset(factor, units) }
+func PolygonStipple(mask *uint8) { gpPolygonStipple(mask) }
+func PopAttrib() { gpPopAttrib() }
+func PopClientAttrib() { gpPopClientAttrib() }
+func PopMatrix() { gpPopMatrix() }
+func PopName() { gpPopName() }
+func PrioritizeTextures(n int32, textures *uint32, priorities *float32) { gpPrioritizeTextures(n, textures, priorities) }
+func PushAttrib(mask uint32) { gpPushAttrib(mask) }
+func PushClientAttrib(mask uint32) { gpPushClientAttrib(mask) }
+func PushMatrix() { gpPushMatrix() }
+func PushName(name uint32) { gpPushName(name) }
+func RasterPos2d(x float64, y float64) { gpRasterPos2d(x, y) }
+func RasterPos2dv(v *float64) { gpRasterPos2dv(v) }
+func RasterPos2f(x float32, y float32) { gpRasterPos2f(x, y) }
+func RasterPos2fv(v *float32) { gpRasterPos2fv(v) }
+func RasterPos2i(x int32, y int32) { gpRasterPos2i(x, y) }
+func RasterPos2iv(v *int32) { gpRasterPos2iv(v) }
+func RasterPos2s(x int16, y int16) { gpRasterPos2s(x, y) }
+func RasterPos2sv(v *int16) { gpRasterPos2sv(v) }
+func RasterPos3d(x float64, y float64, z float64) { gpRasterPos3d(x, y, z) }
+func RasterPos3dv(v *float64) { gpRasterPos3dv(v) }
+func RasterPos3f(x float32, y float32, z float32) { gpRasterPos3f(x, y, z) }
+func RasterPos3fv(v *float32) { gpRasterPos3fv(v) }
+func RasterPos3i(x int32, y int32, z int32) { gpRasterPos3i(x, y, z) }
+func RasterPos3iv(v *int32) { gpRasterPos3iv(v) }
+func RasterPos3s(x int16, y int16, z int16) { gpRasterPos3s(x, y, z) }
+func RasterPos3sv(v *int16) { gpRasterPos3sv(v) }
+func RasterPos4d(x float64, y float64, z float64, w float64) { gpRasterPos4d(x, y, z, w) }
+func RasterPos4dv(v *float64) { gpRasterPos4dv(v) }
+func RasterPos4f(x float32, y float32, z float32, w float32) { gpRasterPos4f(x, y, z, w) }
+func RasterPos4fv(v *float32) { gpRasterPos4fv(v) }
+func RasterPos4i(x int32, y int32, z int32, w int32) { gpRasterPos4i(x, y, z, w) }
+func RasterPos4iv(v *int32) { gpRasterPos4iv(v) }
+func RasterPos4s(x int16, y int16, z int16, w int16) { gpRasterPos4s(x, y, z, w) }
+func RasterPos4sv(v *int16) { gpRasterPos4sv(v) }
+func ReadBuffer(src uint32) { gpReadBuffer(src) }
+func ReadPixels(x int32, y int32, width int32, height int32, format uint32, xtype uint32, pixels unsafe.Pointer) { gpReadPixels(x, y, width, height, format, xtype, pixels) }
+func Rectd(x1 float64, y1 float64, x2 float64, y2 float64) { gpRectd(x1, y1, x2, y2) }
+func Rectdv(v1 *float64, v2 *float64) { gpRectdv(v1, v2) }
+func Rectf(x1 float32, y1 float32, x2 float32, y2 float32) { gpRectf(x1, y1, x2, y2) }
+func Rectfv(v1 *float32, v2 *float32) { gpRectfv(v1, v2) }
+func Recti(x1 int32, y1 int32, x2 int32, y2 int32) { gpRecti(x1, y1, x2, y2) }
+func Rectiv(v1 *int32, v2 *int32) { gpRectiv(v1, v2) }
+func Rects(x1 int16, y1 int16, x2 int16, y2 int16) { gpRects(x1, y1, x2, y2) }
+func Rectsv(v1 *int16, v2 *int16) { gpRectsv(v1, v2) }
+func RenderMode(mode uint32) int32 { return gpRenderMode(mode) }
+func RenderbufferStorage(target uint32, internalformat uint32, width int32, height int32) { gpRenderbufferStorage(target, internalformat, width, height) }
+func Rotated(angle float64, x float64, y float64, z float64) { gpRotated(angle, x, y, z) }
+func Rotatef(angle float32, x float32, y float32, z float32) { gpRotatef(angle, x, y, z) }
+func SampleCoverage(value float32, invert bool) { gpSampleCoverage(value, invert) }
+func Scaled(x float64, y float64, z float64) { gpScaled(x, y, z) }
+func Scalef(x float32, y float32, z float32) { gpScalef(x, y, z) }
+func Scissor(x int32, y int32, width int32, height int32) { gpScissor(x, y, width, height) }
+func SecondaryColor3b(red int8, green int8, blue int8) { gpSecondaryColor3b(red, green, blue) }
+func SecondaryColor3bv(v *int8) { gpSecondaryColor3bv(v) }
+func SecondaryColor3d(red float64, green float64, blue float64) { gpSecondaryColor3d(red, green, blue) }
+func SecondaryColor3dv(v *float64) { gpSecondaryColor3dv(v) }
+func SecondaryColor3f(red float32, green float32, blue float32) { gpSecondaryColor3f(red, green, blue) }
+func SecondaryColor3fv(v *float32) { gpSecondaryColor3fv(v) }
+func SecondaryColor3i(red int32, green int32, blue int32) { gpSecondaryColor3i(red, green, blue) }
+func SecondaryColor3iv(v *int32) { gpSecondaryColor3iv(v) }
+func SecondaryColor3s(red int16, green int16, blue int16) { gpSecondaryColor3s(red, green, blue) }
+func SecondaryColor3sv(v *int16) { gpSecondaryColor3sv(v) }
+func SecondaryColor3ub(red uint8, green uint8, blue uint8) { gpSecondaryColor3ub(red, green, blue) }
+func SecondaryColor3ubv(v *uint8) { gpSecondaryColor3ubv(v) }
+func SecondaryColor3ui(red uint32, green uint32, blue uint32) { gpSecondaryColor3ui(red, green, blue) }
+func SecondaryColor3uiv(v *uint32) { gpSecondaryColor3uiv(v) }
+func SecondaryColor3us(red uint16, green uint16, blue uint16) { gpSecondaryColor3us(red, green, blue) }
+func SecondaryColor3usv(v *uint16) { gpSecondaryColor3usv(v) }
+func SecondaryColorPointer(size int32, xtype uint32, stride int32, pointer unsafe.Pointer) { gpSecondaryColorPointer(size, xtype, stride, pointer) }
+func SelectBuffer(size int32, buffer *uint32) { gpSelectBuffer(size, buffer) }
+func ShadeModel(mode uint32) { gpShadeModel(mode) }
+func ShaderSource(shader uint32, count int32, xstring **uint8, length *int32) { gpShaderSource(shader, count, xstring, length) }
+func StencilFunc(xfunc uint32, ref int32, mask uint32) { gpStencilFunc(xfunc, ref, mask) }
+func StencilFuncSeparate(face uint32, xfunc uint32, ref int32, mask uint32) { gpStencilFuncSeparate(face, xfunc, ref, mask) }
+func StencilMask(mask uint32) { gpStencilMask(mask) }
+func StencilMaskSeparate(face uint32, mask uint32) { gpStencilMaskSeparate(face, mask) }
+func StencilOp(fail uint32, zfail uint32, zpass uint32) { gpStencilOp(fail, zfail, zpass) }
+func StencilOpSeparate(face uint32, sfail uint32, dpfail uint32, dppass uint32) { gpStencilOpSeparate(face, sfail, dpfail, dppass) }
+func TexCoord1d(s float64) { gpTexCoord1d(s) }
+func TexCoord1dv(v *float64) { gpTexCoord1dv(v) }
+func TexCoord1f(s float32) { gpTexCoord1f(s) }
+func TexCoord1fv(v *float32) { gpTexCoord1fv(v) }
+func TexCoord1i(s int32) { gpTexCoord1i(s) }
+func TexCoord1iv(v *int32) { gpTexCoord1iv(v) }
+func TexCoord1s(s int16) { gpTexCoord1s(s) }
+func TexCoord1sv(v *int16) { gpTexCoord1sv(v) }
+func TexCoord2d(s float64, t float64) { gpTexCoord2d(s, t) }
+func TexCoord2dv(v *float64) { gpTexCoord2dv(v) }
+func TexCoord2f(s float32, t float32) { gpTexCoord2f(s, t) }
+func TexCoord2fv(v *float32) { gpTexCoord2fv(v) }
+func TexCoord2i(s int32, t int32) { gpTexCoord2i(s, t) }
+func TexCoord2iv(v *int32) { gpTexCoord2iv(v) }
+func TexCoord2s(s int16, t int16) { gpTexCoord2s(s, t) }
+func TexCoord2sv(v *int16) { gpTexCoord2sv(v) }
+func TexCoord3d(s float64, t float64, r float64) { gpTexCoord3d(s, t, r) }
+func TexCoord3dv(v *float64) { gpTexCoord3dv(v) }
+func TexCoord3f(s float32, t float32, r float32) { gpTexCoord3f(s, t, r) }
+func TexCoord3fv(v *float32) { gpTexCoord3fv(v) }
+func TexCoord3i(s int32, t int32, r int32) { gpTexCoord3i(s, t, r) }
+func TexCoord3iv(v *int32) { gpTexCoord3iv(v) }
+func TexCoord3s(s int16, t int16, r int16) { gpTexCoord3s(s, t, r) }
+func TexCoord3sv(v *int16) { gpTexCoord3sv(v) }
+func TexCoord4d(s float64, t float64, r float64, q float64) { gpTexCoord4d(s, t, r, q) }
+func TexCoord4dv(v *float64) { gpTexCoord4dv(v) }
+func TexCoord4f(s float32, t float32, r float32, q float32) { gpTexCoord4f(s, t, r, q) }
+func TexCoord4fv(v *float32) { gpTexCoord4fv(v) }
+func TexCoord4i(s int32, t int32, r int32, q int32) { gpTexCoord4i(s, t, r, q) }
+func TexCoord4iv(v *int32) { gpTexCoord4iv(v) }
+func TexCoord4s(s int16, t int16, r int16, q int16) { gpTexCoord4s(s, t, r, q) }
+func TexCoord4sv(v *int16) { gpTexCoord4sv(v) }
+func TexCoordPointer(size int32, xtype uint32, stride int32, pointer unsafe.Pointer) { gpTexCoordPointer(size, xtype, stride, pointer) }
+func TexEnvf(target uint32, pname uint32, param float32) { gpTexEnvf(target, pname, param) }
+func TexEnvfv(target uint32, pname uint32, params *float32) { gpTexEnvfv(target, pname, params) }
+func TexEnvi(target uint32, pname uint32, param int32) { gpTexEnvi(target, pname, param) }
+func TexEnviv(target uint32, pname uint32, params *int32) { gpTexEnviv(target, pname, params) }
+func TexGend(coord uint32, pname uint32, param float64) { gpTexGend(coord, pname, param) }
+func TexGendv(coord uint32, pname uint32, params *float64) { gpTexGendv(coord, pname, params) }
+func TexGenf(coord uint32, pname uint32, param float32) { gpTexGenf(coord, pname, param) }
+func TexGenfv(coord uint32, pname uint32, params *float32) { gpTexGenfv(coord, pname, params) }
+func TexGeni(coord uint32, pname uint32, param int32) { gpTexGeni(coord, pname, param) }
+func TexGeniv(coord uint32, pname uint32, params *int32) { gpTexGeniv(coord, pname, params) }
+func TexImage1D(target uint32, level int32, internalformat int32, width int32, border int32, format uint32, xtype uint32, pixels unsafe.Pointer) { gpTexImage1D(target, level, internalformat, width, border, format, xtype, pixels) }
+func TexImage2D(target uint32, level int32, internalformat int32, width int32, height int32, border int32, format uint32, xtype uint32, pixels unsafe.Pointer) { gpTexImage2D(target, level, internalformat, width, height, border, format, xtype, pixels) }
+func TexImage3D(target uint32, level int32, internalformat int32, width int32, height int32, depth int32, border int32, format uint32, xtype uint32, pixels unsafe.Pointer) { gpTexImage3D(target, level, internalformat, width, height, depth, border, format, xtype, pixels) }
+func TexParameterf(target uint32, pname uint32, param float32) { gpTexParameterf(target, pname, param) }
+func TexParameterfv(target uint32, pname uint32, params *float32) { gpTexParameterfv(target, pname, params) }
+func TexParameteri(target uint32, pname uint32, param int32) { gpTexParameteri(target, pname, param) }
+func TexParameteriv(target uint32, pname uint32, params *int32) { gpTexParameteriv(target, pname, params) }
+func TexSubImage1D(target uint32, level int32, xoffset int32, width int32, format uint32, xtype uint32, pixels unsafe.Pointer) { gpTexSubImage1D(target, level, xoffset, width, format, xtype, pixels) }
+func TexSubImage2D(target uint32, level int32, xoffset int32, yoffset int32, width int32, height int32, format uint32, xtype uint32, pixels unsafe.Pointer) { gpTexSubImage2D(target, level, xoffset, yoffset, width, height, format, xtype, pixels) }
+func TexSubImage3D(target uint32, level int32, xoffset int32, yoffset int32, zoffset int32, width int32, height int32, depth int32, format uint32, xtype uint32, pixels unsafe.Pointer) { gpTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, xtype, pixels) }
+func Translated(x float64, y float64, z float64) { gpTranslated(x, y, z) }
+func Translatef(x float32, y float32, z float32) { gpTranslatef(x, y, z) }
+func Uniform1f(location int32, v0 float32) { gpUniform1f(location, v0) }
+func Uniform1fv(location int32, count int32, value *float32) { gpUniform1fv(location, count, value) }
+func Uniform1i(location int32, v0 int32) { gpUniform1i(location, v0) }
+func Uniform1iv(location int32, count int32, value *int32) { gpUniform1iv(location, count, value) }
+func Uniform2f(location int32, v0 float32, v1 float32) { gpUniform2f(location, v0, v1) }
+func Uniform2fv(location int32, count int32, value *float32) { gpUniform2fv(location, count, value) }
+func Uniform2i(location int32, v0 int32, v1 int32) { gpUniform2i(location, v0, v1) }
+func Uniform2iv(location int32, count int32, value *int32) { gpUniform2iv(location, count, value) }
+func Uniform3f(location int32, v0 float32, v1 float32, v2 float32) { gpUniform3f(location, v0, v1, v2) }
+func Uniform3fv(location int32, count int32, value *float32) { gpUniform3fv(location, count, value) }
+func Uniform3i(location int32, v0 int32, v1 int32, v2 int32) { gpUniform3i(location, v0, v1, v2) }
+func Uniform3iv(location int32, count int32, value *int32) { gpUniform3iv(location, count, value) }
+func Uniform4f(location int32, v0 float32, v1 float32, v2 float32, v3 float32) { gpUniform4f(location, v0, v1, v2, v3) }
+func Uniform4fv(location int32, count int32, value *float32) { gpUniform4fv(location, count, value) }
+func Uniform4i(location int32, v0 int32, v1 int32, v2 int32, v3 int32) { gpUniform4i(location, v0, v1, v2, v3) }
+func Uniform4iv(location int32, count int32, value *int32) { gpUniform4iv(location, count, value) }
+func UniformMatrix2fv(location int32, count int32, transpose bool, value *float32) { gpUniformMatrix2fv(location, count, transpose, value) }
+func UniformMatrix2x3fv(location int32, count int32, transpose bool, value *float32) { gpUniformMatrix2x3fv(location, count, transpose, value) }
+func UniformMatrix2x4fv(location int32, count int32, transpose bool, value *float32) { gpUniformMatrix2x4fv(location, count, transpose, value) }
+func UniformMatrix3fv(location int32, count int32, transpose bool, value *float32) { gpUniformMatrix3fv(location, count, transpose, value) }
+func UniformMatrix3x2fv(location int32, count int32, transpose bool, value *float32) { gpUniformMatrix3x2fv(location, count, transpose, value) }
+func UniformMatrix3x4fv(location int32, count int32, transpose bool, value *float32) { gpUniformMatrix3x4fv(location, count, transpose, value) }
+func UniformMatrix4fv(location int32, count int32, transpose bool, value *float32) { gpUniformMatrix4fv(location, count, transpose, value) }
+func UniformMatrix4x2fv(location int32, count int32, transpose bool, value *float32) { gpUniformMatrix4x2fv(location, count, transpose, value) }
+func UniformMatrix4x3fv(location int32, count int32, transpose bool, value *float32) { gpUniformMatrix4x3fv(location, count, transpose, value) }
+func UnmapBuffer(target uint32) bool { return gpUnmapBuffer(target) }
 func UseProgram(program uint32) { gpUseProgram(program) }
-
-func VertexAttribPointer(index uint32, size int32, xtype uint32, normalized bool, stride int32, pointer unsafe.Pointer) {
-	gpVertexAttribPointer(index, size, xtype, normalized, stride, pointer)
-}
-
-func Viewport(x, y, width, height int32) { gpViewport(x, y, width, height) }
+func ValidateProgram(program uint32) { gpValidateProgram(program) }
+func Vertex2d(x float64, y float64) { gpVertex2d(x, y) }
+func Vertex2dv(v *float64) { gpVertex2dv(v) }
+func Vertex2f(x float32, y float32) { gpVertex2f(x, y) }
+func Vertex2fv(v *float32) { gpVertex2fv(v) }
+func Vertex2i(x int32, y int32) { gpVertex2i(x, y) }
+func Vertex2iv(v *int32) { gpVertex2iv(v) }
+func Vertex2s(x int16, y int16) { gpVertex2s(x, y) }
+func Vertex2sv(v *int16) { gpVertex2sv(v) }
+func Vertex3d(x float64, y float64, z float64) { gpVertex3d(x, y, z) }
+func Vertex3dv(v *float64) { gpVertex3dv(v) }
+func Vertex3f(x float32, y float32, z float32) { gpVertex3f(x, y, z) }
+func Vertex3fv(v *float32) { gpVertex3fv(v) }
+func Vertex3i(x int32, y int32, z int32) { gpVertex3i(x, y, z) }
+func Vertex3iv(v *int32) { gpVertex3iv(v) }
+func Vertex3s(x int16, y int16, z int16) { gpVertex3s(x, y, z) }
+func Vertex3sv(v *int16) { gpVertex3sv(v) }
+func Vertex4d(x float64, y float64, z float64, w float64) { gpVertex4d(x, y, z, w) }
+func Vertex4dv(v *float64) { gpVertex4dv(v) }
+func Vertex4f(x float32, y float32, z float32, w float32) { gpVertex4f(x, y, z, w) }
+func Vertex4fv(v *float32) { gpVertex4fv(v) }
+func Vertex4i(x int32, y int32, z int32, w int32) { gpVertex4i(x, y, z, w) }
+func Vertex4iv(v *int32) { gpVertex4iv(v) }
+func Vertex4s(x int16, y int16, z int16, w int16) { gpVertex4s(x, y, z, w) }
+func Vertex4sv(v *int16) { gpVertex4sv(v) }
+func VertexAttrib1d(index uint32, x float64) { gpVertexAttrib1d(index, x) }
+func VertexAttrib1dv(index uint32, v *float64) { gpVertexAttrib1dv(index, v) }
+func VertexAttrib1f(index uint32, x float32) { gpVertexAttrib1f(index, x) }
+func VertexAttrib1fv(index uint32, v *float32) { gpVertexAttrib1fv(index, v) }
+func VertexAttrib1s(index uint32, x int16) { gpVertexAttrib1s(index, x) }
+func VertexAttrib1sv(index uint32, v *int16) { gpVertexAttrib1sv(index, v) }
+func VertexAttrib2d(index uint32, x float64, y float64) { gpVertexAttrib2d(index, x, y) }
+func VertexAttrib2dv(index uint32, v *float64) { gpVertexAttrib2dv(index, v) }
+func VertexAttrib2f(index uint32, x float32, y float32) { gpVertexAttrib2f(index, x, y) }
+func VertexAttrib2fv(index uint32, v *float32) { gpVertexAttrib2fv(index, v) }
+func VertexAttrib2s(index uint32, x int16, y int16) { gpVertexAttrib2s(index, x, y) }
+func VertexAttrib2sv(index uint32, v *int16) { gpVertexAttrib2sv(index, v) }
+func VertexAttrib3d(index uint32, x float64, y float64, z float64) { gpVertexAttrib3d(index, x, y, z) }
+func VertexAttrib3dv(index uint32, v *float64) { gpVertexAttrib3dv(index, v) }
+func VertexAttrib3f(index uint32, x float32, y float32, z float32) { gpVertexAttrib3f(index, x, y, z) }
+func VertexAttrib3fv(index uint32, v *float32) { gpVertexAttrib3fv(index, v) }
+func VertexAttrib3s(index uint32, x int16, y int16, z int16) { gpVertexAttrib3s(index, x, y, z) }
+func VertexAttrib3sv(index uint32, v *int16) { gpVertexAttrib3sv(index, v) }
+func VertexAttrib4Nbv(index uint32, v *int8) { gpVertexAttrib4Nbv(index, v) }
+func VertexAttrib4Niv(index uint32, v *int32) { gpVertexAttrib4Niv(index, v) }
+func VertexAttrib4Nsv(index uint32, v *int16) { gpVertexAttrib4Nsv(index, v) }
+func VertexAttrib4Nub(index uint32, x uint8, y uint8, z uint8, w uint8) { gpVertexAttrib4Nub(index, x, y, z, w) }
+func VertexAttrib4Nubv(index uint32, v *uint8) { gpVertexAttrib4Nubv(index, v) }
+func VertexAttrib4Nuiv(index uint32, v *uint32) { gpVertexAttrib4Nuiv(index, v) }
+func VertexAttrib4Nusv(index uint32, v *uint16) { gpVertexAttrib4Nusv(index, v) }
+func VertexAttrib4bv(index uint32, v *int8) { gpVertexAttrib4bv(index, v) }
+func VertexAttrib4d(index uint32, x float64, y float64, z float64, w float64) { gpVertexAttrib4d(index, x, y, z, w) }
+func VertexAttrib4dv(index uint32, v *float64) { gpVertexAttrib4dv(index, v) }
+func VertexAttrib4f(index uint32, x float32, y float32, z float32, w float32) { gpVertexAttrib4f(index, x, y, z, w) }
+func VertexAttrib4fv(index uint32, v *float32) { gpVertexAttrib4fv(index, v) }
+func VertexAttrib4iv(index uint32, v *int32) { gpVertexAttrib4iv(index, v) }
+func VertexAttrib4s(index uint32, x int16, y int16, z int16, w int16) { gpVertexAttrib4s(index, x, y, z, w) }
+func VertexAttrib4sv(index uint32, v *int16) { gpVertexAttrib4sv(index, v) }
+func VertexAttrib4ubv(index uint32, v *uint8) { gpVertexAttrib4ubv(index, v) }
+func VertexAttrib4uiv(index uint32, v *uint32) { gpVertexAttrib4uiv(index, v) }
+func VertexAttrib4usv(index uint32, v *uint16) { gpVertexAttrib4usv(index, v) }
+func VertexAttribPointer(index uint32, size int32, xtype uint32, normalized bool, stride int32, pointer unsafe.Pointer) { gpVertexAttribPointer(index, size, xtype, normalized, stride, pointer) }
+func VertexPointer(size int32, xtype uint32, stride int32, pointer unsafe.Pointer) { gpVertexPointer(size, xtype, stride, pointer) }
+func Viewport(x int32, y int32, width int32, height int32) { gpViewport(x, y, width, height) }
+func WindowPos2d(x float64, y float64) { gpWindowPos2d(x, y) }
+func WindowPos2dv(v *float64) { gpWindowPos2dv(v) }
+func WindowPos2f(x float32, y float32) { gpWindowPos2f(x, y) }
+func WindowPos2fv(v *float32) { gpWindowPos2fv(v) }
+func WindowPos2i(x int32, y int32) { gpWindowPos2i(x, y) }
+func WindowPos2iv(v *int32) { gpWindowPos2iv(v) }
+func WindowPos2s(x int16, y int16) { gpWindowPos2s(x, y) }
+func WindowPos2sv(v *int16) { gpWindowPos2sv(v) }
+func WindowPos3d(x float64, y float64, z float64) { gpWindowPos3d(x, y, z) }
+func WindowPos3dv(v *float64) { gpWindowPos3dv(v) }
+func WindowPos3f(x float32, y float32, z float32) { gpWindowPos3f(x, y, z) }
+func WindowPos3fv(v *float32) { gpWindowPos3fv(v) }
+func WindowPos3i(x int32, y int32, z int32) { gpWindowPos3i(x, y, z) }
+func WindowPos3iv(v *int32) { gpWindowPos3iv(v) }
+func WindowPos3s(x int16, y int16, z int16) { gpWindowPos3s(x, y, z) }
+func WindowPos3sv(v *int16) { gpWindowPos3sv(v) }

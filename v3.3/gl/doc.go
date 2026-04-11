@@ -1,6 +1,6 @@
-// Package gl provides CGO-less OpenGL 2.1 bindings for Go.
+// Package gl provides CGO-less OpenGL 3.3 core-profile bindings for Go.
 //
-// This package is a drop-in replacement for github.com/go-gl/gl/v2.1/gl.
+// This package is a drop-in replacement for github.com/go-gl/gl/v3.3-core/gl.
 // It uses github.com/ebitengine/purego for dynamic symbol loading instead
 // of CGO, which means:
 //
@@ -17,7 +17,7 @@
 //	    log.Fatal(err)
 //	}
 //
-// The rest of the API is identical to github.com/go-gl/gl/v2.1/gl.
+// The rest of the API is identical to github.com/go-gl/gl/v3.3-core/gl.
 //
 // # Code generation
 //
@@ -26,5 +26,5 @@
 // in cmd/glgen. Do not edit package.go or init.go by hand; run go generate
 // instead.
 //
-//go:generate go run ../../cmd/glgen/ -ver 2.1 -out .
+//go:generate go run ../../cmd/glgen/ -ver 3.3 -out .
 package gl
