@@ -30,6 +30,40 @@ type GLConst struct {
 	Value  string
 }
 
+// optionalEnums lists GL enum names not in GL 2.1 core that are the
+// companion constants for the functions in optionalFuncs. They are included
+// unconditionally so that callers using those optional functions have the
+// named constants available.
+var optionalEnums = map[string]bool{
+	// FBO — GL_ARB_framebuffer_object / GL 3.0 core
+	"GL_FRAMEBUFFER":              true,
+	"GL_READ_FRAMEBUFFER":         true,
+	"GL_DRAW_FRAMEBUFFER":         true,
+	"GL_RENDERBUFFER":             true,
+	"GL_COLOR_ATTACHMENT0":        true,
+	"GL_COLOR_ATTACHMENT1":        true,
+	"GL_COLOR_ATTACHMENT2":        true,
+	"GL_COLOR_ATTACHMENT3":        true,
+	"GL_DEPTH_ATTACHMENT":         true,
+	"GL_STENCIL_ATTACHMENT":       true,
+	"GL_DEPTH_STENCIL_ATTACHMENT": true,
+	"GL_FRAMEBUFFER_COMPLETE":     true,
+	"GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT":          true,
+	"GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT":  true,
+	"GL_FRAMEBUFFER_UNSUPPORTED":                    true,
+	// Renderbuffer internal formats
+	"GL_DEPTH_COMPONENT16":  true,
+	"GL_DEPTH_COMPONENT24":  true,
+	"GL_DEPTH_COMPONENT32F": true,
+	"GL_DEPTH24_STENCIL8":   true,
+	"GL_DEPTH32F_STENCIL8":  true,
+	// GenerateMipmap target (same value as TEXTURE_2D etc, but explicit)
+	"GL_TEXTURE_1D_ARRAY": true,
+	"GL_TEXTURE_2D_ARRAY": true,
+	// GetStringi
+	"GL_NUM_EXTENSIONS": true,
+}
+
 // optionalFuncs lists entry points not in GL 2.1 core but commonly available
 // and used by our examples. They are included with required=false.
 var optionalFuncs = map[string]bool{
@@ -179,6 +213,14 @@ func collect(reg *Registry, maxVer string) (funcs []GLFunc, consts []GLConst) {
 		})
 	}
 	sort.Slice(funcs, func(i, j int) bool { return funcs[i].GoName < funcs[j].GoName })
+
+	// Merge optional enums into the required set so they are always emitted,
+	// even when the target version doesn't include them in its feature spec.
+	for enumName := range optionalEnums {
+		if !removedEnums[enumName] {
+			requiredEnums[enumName] = true
+		}
+	}
 
 	// ── resolve constants ─────────────────────────────────────────────────────
 	for enumName := range requiredEnums {
