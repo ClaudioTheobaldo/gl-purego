@@ -4,10 +4,10 @@
 
 - ~~**GL 3.3 example**~~ ✅ `examples/15_instancing` — 10×10 wave of cubes, single instanced draw call
 
-- **GL 4.x example** — one example per notable 4.x feature:
-  - Direct State Access (DSA) — `glNamedBufferData`, `glVertexArrayAttribBinding`, etc.
-  - Compute shader — simple particle system or image processing
-  - Geometry shader — normal visualisation or shadow volumes
+- ~~**GL 4.x example**~~ ✅ `examples/16_compute_julia` — animated Julia set via compute shader (GL 4.3)
+  - Remaining 4.x topics for future examples:
+    - Direct State Access (DSA) — `glNamedBufferData`, `glVertexArrayAttribBinding`, etc.
+    - Geometry shader — normal visualisation or shadow volumes
 
 - **`go generate` regression test** — run `go run ./cmd/glgen/` for each version and assert
   the output is byte-for-byte identical to what is committed; catches silent regressions
