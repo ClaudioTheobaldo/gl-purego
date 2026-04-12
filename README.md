@@ -16,13 +16,15 @@ Uses [`github.com/ebitengine/purego`](https://github.com/ebitengine/purego) for 
 | macOS (amd64, arm64) | `OpenGL.framework` via purego | ✅ |
 | Linux (amd64, arm64) | `libGL.so` + GLX via purego | ✅ |
 
-## Supported GL versions
+## Supported versions
 
 All packages live in the root module (`github.com/ClaudioTheobaldo/gl-purego`).
 
+### Desktop OpenGL
+
 | Import path | API | Functions | Constants | Notes |
 |-------------|-----|-----------|-----------|-------|
-| `v2.1/gl` | OpenGL 2.1 | 568 | 864 | Full legacy fixed-function pipeline included |
+| `v2.1/gl` | OpenGL 2.1 | 568 | 885 | Full legacy fixed-function pipeline included |
 | `v3.3/gl` | OpenGL 3.3 core | 345 | 818 | Deprecated fixed-function removed |
 | `v4.1/gl` | OpenGL 4.1 core | 478 | 930 | macOS maximum; recommended for cross-platform |
 | `v4.6/gl` | OpenGL 4.6 core | 656 | 1363 | Latest; DSA, SPIR-V, compute |
@@ -30,6 +32,17 @@ All packages live in the root module (`github.com/ClaudioTheobaldo/gl-purego`).
 > The v3.3 package has *fewer* functions than v2.1 — that is correct. The core profile
 > drops ~200 deprecated fixed-function commands (`glBegin`/`glEnd`, `glColor*`, `glVertex*`,
 > immediate-mode evaluators, etc.) that were part of the old pipeline.
+
+### OpenGL ES (GLES2)
+
+| Import path | API | Functions | Constants | Notes |
+|-------------|-----|-----------|-----------|-------|
+| `gles2/v3.0/gl` | OpenGL ES 3.0 | 246 | 622 | Mobile / embedded baseline |
+| `gles2/v3.1/gl` | OpenGL ES 3.1 | 314 | 795 | Adds compute shaders, SSBOs |
+
+> On Windows, GLES requires [ANGLE](https://chromium.googlesource.com/angle/angle)
+> (`libGLESv2.dll` + `libEGL.dll`). On Linux, Mesa or a vendor driver provides
+> `libGLESv2.so`. macOS needs a bundled ANGLE dylib — no native GLES support.
 
 ## Usage
 
@@ -80,7 +93,8 @@ go run ./cmd/glgen/ -ver 4.6 -out v4.6/gl
 
 | Flag | Default | Description |
 |------|---------|-------------|
-| `-ver` | `2.1` | Maximum GL version to include (e.g. `3.3`, `4.6`) |
+| `-api` | `gl` | API to generate: `gl` (desktop) or `gles2` (OpenGL ES) |
+| `-ver` | `2.1` | Maximum version to include (e.g. `3.3`, `4.6`, `3.1` for GLES) |
 | `-out` | `v2.1/gl` | Output directory for `package.go` and `init.go` |
 | `-xml` | *(auto)* | Path to a local `gl.xml` (skips download) |
 

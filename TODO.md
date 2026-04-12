@@ -9,17 +9,13 @@
     - Direct State Access (DSA) — `glNamedBufferData`, `glVertexArrayAttribBinding`, etc.
     - Geometry shader — normal visualisation or shadow volumes
 
-- **`go generate` regression test** — run `go run ./cmd/glgen/` for each version and assert
-  the output is byte-for-byte identical to what is committed; catches silent regressions
-  in gl.xml parsing or type-mapping logic
+- ~~**`go generate` regression test**~~ ✅ `cmd/glgen/generate_test.go` — byte-for-byte stability check for all four GL versions
 
 ## Bigger
 
-- **GLES bindings** (`v3.0/gles2`, `v3.1/gles2`, `v3.2/gles2`):
-  - The generator already understands `api="gles2"` in gl.xml; needs `-api gles2` flag
-  - Different procaddr files: EGL instead of WGL/GLX
-  - Different platform constraints (`//go:build android || linux`)
-  - Separate module or subdirectory mirroring the go-gl layout
+- ~~**GLES bindings**~~ ✅ `gles2/v3.0/gl` and `gles2/v3.1/gl` — generated via `go run ./cmd/glgen/ -api gles2 -ver X.Y`
+  - Remaining: `gles2/v3.2/gl` (adds geometry/tessellation shaders to GLES)
+  - Remaining: Android procaddr (`dlopen("libGLESv2.so")` without EGL)
 
 - **GL 3.3 / 4.x init tests** — same mock-resolver pattern as `v2.1/gl/init_test.go`
   but with the correct optional set for each version (v3.3+ has almost no optional

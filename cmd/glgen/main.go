@@ -31,6 +31,7 @@ func main() {
 		xmlPath = flag.String("xml", "", "path to gl.xml (downloads if empty)")
 		outDir  = flag.String("out", "v2.1/gl", "output directory for generated files")
 		maxVer  = flag.String("ver", "2.1", "maximum GL version to include")
+		api     = flag.String("api", "gl", "API to generate: gl or gles2")
 	)
 	flag.Parse()
 
@@ -51,14 +52,18 @@ func main() {
 		}
 	}
 
+	if *api != "gl" && *api != "gles2" {
+		log.Fatalf("glgen: -api must be 'gl' or 'gles2', got %q", *api)
+	}
+
 	reg, err := parseRegistry(xmlFile)
 	if err != nil {
 		log.Fatalf("glgen: parse error: %v", err)
 	}
 
-	funcs, consts := collect(reg, *maxVer)
-	fmt.Fprintf(os.Stderr, "glgen: collected %d functions, %d constants (GL ≤ %s)\n",
-		len(funcs), len(consts), *maxVer)
+	funcs, consts := collect(reg, *maxVer, *api)
+	fmt.Fprintf(os.Stderr, "glgen: collected %d functions, %d constants (%s ≤ %s)\n",
+		len(funcs), len(consts), *api, *maxVer)
 
 	if err := os.MkdirAll(*outDir, 0o755); err != nil {
 		log.Fatalf("glgen: mkdir %s: %v", *outDir, err)
@@ -66,14 +71,14 @@ func main() {
 
 	// package.go
 	pkgPath := filepath.Join(*outDir, "package.go")
-	if err := writeFile(pkgPath, func(w io.Writer) { writePackageGo(w, funcs, consts) }); err != nil {
+	if err := writeFile(pkgPath, func(w io.Writer) { writePackageGo(w, funcs, consts, *api, *maxVer) }); err != nil {
 		log.Fatalf("glgen: %v", err)
 	}
 	fmt.Fprintf(os.Stderr, "glgen: wrote %s\n", pkgPath)
 
 	// init.go
 	initPath := filepath.Join(*outDir, "init.go")
-	if err := writeFile(initPath, func(w io.Writer) { writeInitGo(w, funcs) }); err != nil {
+	if err := writeFile(initPath, func(w io.Writer) { writeInitGo(w, funcs, *api, *maxVer) }); err != nil {
 		log.Fatalf("glgen: %v", err)
 	}
 	fmt.Fprintf(os.Stderr, "glgen: wrote %s\n", initPath)
