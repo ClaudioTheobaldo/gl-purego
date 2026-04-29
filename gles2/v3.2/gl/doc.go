@@ -1,4 +1,4 @@
-// Package gl provides CGO-less OpenGL ES 3.1 bindings for Go.
+// Package gl provides CGO-less OpenGL ES 3.2 bindings for Go.
 //
 // It uses github.com/ebitengine/purego for dynamic symbol loading instead of
 // CGO, which means no C compiler is required at build time.
@@ -19,6 +19,6 @@
 // in cmd/glgen. Do not edit package.go or init.go by hand; run go generate
 // instead.
 //
-//go:generate go run ../../../cmd/glgen/ -api gles2 -ver 3.1 -out . -ext
+//go:generate go run ../../../cmd/glgen/ -api gles2 -ver 3.2 -out . -ext
 package gl
 

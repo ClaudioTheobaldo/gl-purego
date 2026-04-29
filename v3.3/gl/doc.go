@@ -26,5 +26,6 @@
 // in cmd/glgen. Do not edit package.go or init.go by hand; run go generate
 // instead.
 //
-//go:generate go run ../../cmd/glgen/ -ver 3.3 -out .
+//go:generate go run ../../cmd/glgen/ -ver 3.3 -out . -ext
 package gl
+
