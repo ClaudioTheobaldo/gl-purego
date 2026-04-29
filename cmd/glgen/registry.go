@@ -15,7 +15,8 @@ type Registry struct {
 	Commands struct {
 		Commands []Command `xml:"command"`
 	} `xml:"commands"`
-	Features []Feature `xml:"feature"`
+	Features   []Feature   `xml:"feature"`
+	Extensions []Extension `xml:"extensions>extension"`
 }
 
 // EnumGroup is a <enums> block.
@@ -52,9 +53,17 @@ type Feature struct {
 
 // Require / Remove sections list commands and enums by name.
 type Require struct {
+	API      string      `xml:"api,attr"`     // non-empty inside <extension> blocks
 	Profile  string      `xml:"profile,attr"`
 	Commands []NamedItem `xml:"command"`
 	Enums    []NamedItem `xml:"enum"`
+}
+
+// Extension is a <extension> element inside <extensions>.
+type Extension struct {
+	Name      string    `xml:"name,attr"`
+	Supported string    `xml:"supported,attr"` // e.g. "gl", "gles2", "gl|gles2"
+	Requires  []Require `xml:"require"`
 }
 
 // NamedItem is a <command name="..."/> or <enum name="..."/> reference.
@@ -127,4 +136,26 @@ func parseVer(v string) [2]int {
 		minor, _ = strconv.Atoi(parts[1])
 	}
 	return [2]int{major, minor}
+}
+
+// extensionSupportsAPI reports whether an extension's "supported" attribute
+// includes the given api ("gl" or "gles2").
+//
+// The supported value is a pipe-delimited list of tokens: "gl", "gles2",
+// "gles1", "glcore", "disabled".  "glcore" is a sub-profile of desktop GL
+// (core profile only) and is treated as equivalent to "gl" here.
+func extensionSupportsAPI(supported, api string) bool {
+	if supported == "disabled" {
+		return false
+	}
+	for _, t := range strings.Split(supported, "|") {
+		t = strings.TrimSpace(t)
+		if t == api {
+			return true
+		}
+		if api == "gl" && t == "glcore" {
+			return true
+		}
+	}
+	return false
 }

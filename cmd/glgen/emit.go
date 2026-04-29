@@ -92,7 +92,11 @@ var optionalFuncs = map[string]bool{
 
 // collect resolves all GL functions and constants for the given api ("gl" or
 // "gles2") up to maxVer, plus the optional extension functions in optionalFuncs.
-func collect(reg *Registry, maxVer, api string) (funcs []GLFunc, consts []GLConst) {
+// When includeExts is true all extensions whose "supported" attribute covers
+// the target API are also included (with required=false).
+// When compat is true the compatibility profile is generated: compat-only
+// additions are included and core-profile removals are not applied.
+func collect(reg *Registry, maxVer, api string, includeExts, compat bool) (funcs []GLFunc, consts []GLConst) {
 	// ── index all commands by GL name ────────────────────────────────────────
 	cmdMap := make(map[string]Command, len(reg.Commands.Commands))
 	for _, cmd := range reg.Commands.Commands {
@@ -142,8 +146,13 @@ func collect(reg *Registry, maxVer, api string) (funcs []GLFunc, consts []GLCons
 			continue
 		}
 		for _, req := range feat.Requires {
-			if req.Profile == "compatibility" {
-				continue // skip compatibility-only additions
+			// Core profile: skip compat-only additions.
+			// Compat profile: skip core-only additions (rare in practice).
+			if !compat && req.Profile == "compatibility" {
+				continue
+			}
+			if compat && req.Profile == "core" {
+				continue
 			}
 			for _, c := range req.Commands {
 				requiredCmds[c.Name] = true
@@ -154,6 +163,11 @@ func collect(reg *Registry, maxVer, api string) (funcs []GLFunc, consts []GLCons
 			}
 		}
 		for _, rem := range feat.Removes {
+			// <remove profile="core"> means: removed from core profile only.
+			// In compat mode these functions are retained, so skip the removal.
+			if compat && rem.Profile == "core" {
+				continue
+			}
 			for _, c := range rem.Commands {
 				removedCmds[c.Name] = true
 			}
@@ -170,6 +184,33 @@ func collect(reg *Registry, maxVer, api string) (funcs []GLFunc, consts []GLCons
 		for name := range optionalFuncs {
 			if _, ok := cmdMap[name]; ok {
 				requiredCmds[name] = true
+			}
+		}
+	}
+
+	// Include all extensions for the target API when requested.
+	// Extension functions are NOT added to featureCmds, so they get
+	// Required=false (loaded opportunistically, no error if missing).
+	if includeExts {
+		for _, ext := range reg.Extensions {
+			if !extensionSupportsAPI(ext.Supported, api) {
+				continue
+			}
+			for _, req := range ext.Requires {
+				// Skip require blocks scoped to a different API.
+				if req.API != "" && req.API != api {
+					continue
+				}
+				// Skip compat-only additions.
+				if req.Profile == "compatibility" {
+					continue
+				}
+				for _, c := range req.Commands {
+					requiredCmds[c.Name] = true
+				}
+				for _, e := range req.Enums {
+					requiredEnums[e.Name] = true
+				}
 			}
 		}
 	}
@@ -202,6 +243,15 @@ func collect(reg *Registry, maxVer, api string) (funcs []GLFunc, consts []GLCons
 				Name:   safeParamName(pName),
 				GoType: pGoType,
 			})
+		}
+
+		// purego.RegisterFunc has a hard limit of 15 arguments (maxArgs in
+		// purego/syscall.go). Functions exceeding this limit (a handful of
+		// NV multi-GPU image-copy extensions) are silently skipped — they
+		// cannot be called through purego at all.
+		const puregoMaxArgs = 15
+		if len(params) > puregoMaxArgs {
+			continue
 		}
 
 		funcs = append(funcs, GLFunc{

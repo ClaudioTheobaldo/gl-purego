@@ -29,27 +29,40 @@ func TestGenerateStable(t *testing.T) {
 	}
 
 	versions := []struct {
-		ver string
-		out string
+		ver    string
+		out    string
+		compat bool
 	}{
-		{"2.1", "v2.1/gl"},
-		{"3.3", "v3.3/gl"},
-		{"4.1", "v4.1/gl"},
-		{"4.6", "v4.6/gl"},
+		{"2.1", "v2.1/gl", false},
+		{"3.3", "v3.3/gl", false},
+		{"4.1", "v4.1/gl", false},
+		{"4.6", "v4.6/gl", false},
+		{"3.3", "v3.3-compat/gl", true},
+		{"4.1", "v4.1-compat/gl", true},
+		{"4.6", "v4.6-compat/gl", true},
 	}
 
 	for _, v := range versions {
 		v := v
-		t.Run("v"+v.ver, func(t *testing.T) {
+		name := "v" + v.ver
+		if v.compat {
+			name += "-compat"
+		}
+		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 
 			// Run generator into a temp directory.
 			tmp := t.TempDir()
-			cmd := exec.Command("go", "run", "./cmd/glgen/",
+			args := []string{"run", "./cmd/glgen/",
 				"-ver", v.ver,
 				"-xml", cachedXML,
 				"-out", tmp,
-			)
+				"-ext",
+			}
+			if v.compat {
+				args = append(args, "-compat")
+			}
+			cmd := exec.Command("go", args...)
 			cmd.Dir = repoRoot
 			out, err := cmd.CombinedOutput()
 			if err != nil {
@@ -72,8 +85,16 @@ func TestGenerateStable(t *testing.T) {
 
 				if !bytes.Equal(want, got) {
 					t.Errorf("%s/%s: generated output differs from committed file\n"+
-						"  run: go run ./cmd/glgen/ -ver %s -out %s\n"+
-						"  and commit the result", v.out, fname, v.ver, v.out)
+						"  run: go run ./cmd/glgen/ -ver %s -out %s -ext%s\n"+
+						"  and commit the result",
+						v.out, fname, v.ver, v.out,
+						func() string {
+							if v.compat {
+								return " -compat"
+							}
+							return ""
+						}(),
+					)
 				}
 			}
 		})

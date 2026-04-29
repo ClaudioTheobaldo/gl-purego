@@ -28,10 +28,12 @@ const glxmlURL = "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry
 
 func main() {
 	var (
-		xmlPath = flag.String("xml", "", "path to gl.xml (downloads if empty)")
-		outDir  = flag.String("out", "v2.1/gl", "output directory for generated files")
-		maxVer  = flag.String("ver", "2.1", "maximum GL version to include")
-		api     = flag.String("api", "gl", "API to generate: gl or gles2")
+		xmlPath     = flag.String("xml", "", "path to gl.xml (downloads if empty)")
+		outDir      = flag.String("out", "v2.1/gl", "output directory for generated files")
+		maxVer      = flag.String("ver", "2.1", "maximum GL version to include")
+		api         = flag.String("api", "gl", "API to generate: gl or gles2")
+		includeExts = flag.Bool("ext", false, "include all extensions for the target API")
+		compat      = flag.Bool("compat", false, "generate compatibility profile (keeps deprecated fixed-function API)")
 	)
 	flag.Parse()
 
@@ -61,7 +63,7 @@ func main() {
 		log.Fatalf("glgen: parse error: %v", err)
 	}
 
-	funcs, consts := collect(reg, *maxVer, *api)
+	funcs, consts := collect(reg, *maxVer, *api, *includeExts, *compat)
 	fmt.Fprintf(os.Stderr, "glgen: collected %d functions, %d constants (%s ≤ %s)\n",
 		len(funcs), len(consts), *api, *maxVer)
 
