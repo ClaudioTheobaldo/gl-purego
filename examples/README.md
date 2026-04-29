@@ -64,8 +64,24 @@ CGO_ENABLED=0 go run .
 
 | # | Directory | GL | Topic |
 |---|-----------|-----|-------|
-| 15 | `15_instancing` | 3.3 core | 100 cubes in one draw call via `glDrawElementsInstanced` + `glVertexAttribDivisor` |
-| 16 | `16_compute_julia` | 4.3 | Animated Julia set fractal computed entirely on the GPU via compute shader + `imageStore` |
+| 15 | `15_instancing` | GL 3.3 core | 100 cubes in one draw call via `glDrawElementsInstanced` + `glVertexAttribDivisor` |
+| 16 | `16_compute_julia` | GL 4.3 | Animated Julia set fractal computed entirely on the GPU via compute shader + `imageStore` |
+| 17 | `17_gles_triangle` | GLES 3.0 | Coloured triangle via the new EGL backend (ANGLE); first OpenGL ES example |
+| 18 | `18_gles_textures` | GLES 3.0 | Textured quad — checkerboard generated in Go, `GL_TEXTURE_2D`, `sampler2D` |
+| 19 | `19_gles_compute`  | GLES 3.1 | Compute shader writes UV-gradient into a 512×512 image, fullscreen display |
+| 20 | `20_gles32_geometry` | GLES 3.2 | Geometry shader emits normal-visualisation lines per triangle edge |
+
+> Examples 17–20 require [ANGLE](https://chromium.googlesource.com/angle/angle)
+> (`libGLESv2.dll` + `libEGL.dll` + `vulkan-1.dll` + `vk_swiftshader.dll`) alongside the executable.
+> Examples 17–18 also work with browser-shipped ANGLE (copy from Brave/Chrome —
+> see `examples/17_gles_triangle/copy_angle.ps1`).
+>
+> Examples 19 and 20 require a **Vulkan-enabled ANGLE build** (GLES 3.1 / 3.2).
+> ANGLE's D3D11 backend is hardcapped at GLES 3.0 regardless of GPU; the Vulkan
+> backend lifts this limit. Both examples automatically set
+> `ANGLE_DEFAULT_PLATFORM=vulkan` and exit with a clear message if GLES 3.1/3.2
+> is unavailable. Build ANGLE from source with `angle_enable_vulkan=true`, or run
+> on Linux with Mesa.
 
 ## Controls (camera examples)
 
