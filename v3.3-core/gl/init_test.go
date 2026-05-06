@@ -7,7 +7,7 @@ import (
 	"testing"
 	"unsafe"
 
-	gl "github.com/ClaudioTheobaldo/gl-purego/v4.6/gl"
+	gl "github.com/ClaudioTheobaldo/gl-purego/v3.3-core/gl"
 )
 
 func TestInitWithProcAddrFunc_NilResolver(t *testing.T) {
@@ -21,12 +21,19 @@ func TestInitWithProcAddrFunc_NilResolver(t *testing.T) {
 	t.Logf("nil-resolver error: %s", err)
 }
 
-func TestInitWithProcAddrFunc_AllPresent(t *testing.T) {
+// In GL 3.3 core, VAO/FBO/GenerateMipmap/GetStringi are all required by the
+// spec — there are no optional extras beyond glClearDepthf (GL 4.1+).
+func TestInitWithProcAddrFunc_ClearDepthfOptional(t *testing.T) {
 	var sentinel uint8
 	fakeAddr := unsafe.Pointer(&sentinel)
 
-	err := gl.InitWithProcAddrFunc(func(string) unsafe.Pointer { return fakeAddr })
+	err := gl.InitWithProcAddrFunc(func(name string) unsafe.Pointer {
+		if name == "glClearDepthf" {
+			return nil // optional in 3.3 — must not cause error
+		}
+		return fakeAddr
+	})
 	if err != nil {
-		t.Fatalf("expected nil error when all functions present, got: %v", err)
+		t.Fatalf("glClearDepthf should be optional in GL 3.3, got error: %v", err)
 	}
 }

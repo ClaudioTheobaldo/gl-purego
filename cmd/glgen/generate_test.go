@@ -34,12 +34,12 @@ func TestGenerateStable(t *testing.T) {
 		compat bool
 	}{
 		{"2.1", "v2.1/gl", false},
-		{"3.3", "v3.3/gl", false},
-		{"4.1", "v4.1/gl", false},
-		{"4.6", "v4.6/gl", false},
-		{"3.3", "v3.3-compat/gl", true},
-		{"4.1", "v4.1-compat/gl", true},
-		{"4.6", "v4.6-compat/gl", true},
+		{"3.3", "v3.3-core/gl", false},
+		{"4.1", "v4.1-core/gl", false},
+		{"4.6", "v4.6-core/gl", false},
+		{"3.3", "v3.3-compatibility/gl", true},
+		{"4.1", "v4.1-compatibility/gl", true},
+		{"4.6", "v4.6-compatibility/gl", true},
 	}
 
 	for _, v := range versions {

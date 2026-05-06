@@ -25,9 +25,9 @@ All packages live in the root module (`github.com/ClaudioTheobaldo/gl-purego`).
 | Import path | API | Functions | Constants | Notes |
 |-------------|-----|-----------|-----------|-------|
 | `v2.1/gl` | OpenGL 2.1 | 568 | 885 | Full legacy fixed-function pipeline included |
-| `v3.3/gl` | OpenGL 3.3 core | 345 | 818 | Deprecated fixed-function removed |
-| `v4.1/gl` | OpenGL 4.1 core | 478 | 930 | macOS maximum; recommended for cross-platform |
-| `v4.6/gl` | OpenGL 4.6 core | 656 | 1363 | Latest; DSA, SPIR-V, compute |
+| `v3.3-core/gl` | OpenGL 3.3 core | 345 | 818 | Deprecated fixed-function removed |
+| `v4.1-core/gl` | OpenGL 4.1 core | 478 | 930 | macOS maximum; recommended for cross-platform |
+| `v4.6-core/gl` | OpenGL 4.6 core | 656 | 1363 | Latest; DSA, SPIR-V, compute |
 
 > The v3.3 package has *fewer* functions than v2.1 — that is correct. The core profile
 > drops ~200 deprecated fixed-function commands (`glBegin`/`glEnd`, `glColor*`, `glVertex*`,
@@ -47,7 +47,7 @@ All packages live in the root module (`github.com/ClaudioTheobaldo/gl-purego`).
 ## Usage
 
 ```go
-import gl "github.com/ClaudioTheobaldo/gl-purego/v3.3/gl"
+import gl "github.com/ClaudioTheobaldo/gl-purego/v3.3-core/gl"
 
 // After creating an OpenGL context:
 if err := gl.Init(); err != nil {
@@ -67,7 +67,7 @@ gl.InitWithProcAddrFunc(func(name string) unsafe.Pointer {
 import "github.com/go-gl/gl/v3.3-core/gl"
 
 // After
-import gl "github.com/ClaudioTheobaldo/gl-purego/v3.3/gl"
+import gl "github.com/ClaudioTheobaldo/gl-purego/v3.3-core/gl"
 ```
 
 ## Code generation (`cmd/glgen`)
@@ -81,9 +81,9 @@ from the official [Khronos OpenGL XML registry](https://github.com/KhronosGroup/
 ```bash
 # From the repo root — generates (or regenerates) a specific version:
 go run ./cmd/glgen/ -ver 2.1 -out v2.1/gl
-go run ./cmd/glgen/ -ver 3.3 -out v3.3/gl
-go run ./cmd/glgen/ -ver 4.1 -out v4.1/gl
-go run ./cmd/glgen/ -ver 4.6 -out v4.6/gl
+go run ./cmd/glgen/ -ver 3.3 -out v3.3-core/gl
+go run ./cmd/glgen/ -ver 4.1 -out v4.1-core/gl
+go run ./cmd/glgen/ -ver 4.6 -out v4.6-core/gl
 ```
 
 `gl.xml` is downloaded from Khronos on the first run and cached at
@@ -102,11 +102,11 @@ go run ./cmd/glgen/ -ver 4.6 -out v4.6/gl
 
 1. Create the version directory and copy the static files from an existing version:
    ```bash
-   mkdir -p vX.Y/gl
-   cp v4.6/gl/{conversions,texture,procaddr_windows,procaddr_linux,procaddr_darwin}.go vX.Y/gl/
+   mkdir -p vX.Y-core/gl
+   cp v4.6-core/gl/{conversions,texture,procaddr_windows,procaddr_linux,procaddr_darwin}.go vX.Y-core/gl/
    ```
-2. Write a `vX.Y/gl/doc.go` with the package comment.
-3. Run the generator: `go run ./cmd/glgen/ -ver X.Y -out vX.Y/gl`
+2. Write a `vX.Y-core/gl/doc.go` with the package comment.
+3. Run the generator: `go run ./cmd/glgen/ -ver X.Y -out vX.Y-core/gl`
 
 ### What the generator does
 

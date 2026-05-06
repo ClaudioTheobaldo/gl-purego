@@ -35,7 +35,7 @@ import (
 	"math"
 	"unsafe"
 
-	gl   "github.com/ClaudioTheobaldo/gl-purego/v4.6/gl"
+	gl   "github.com/ClaudioTheobaldo/gl-purego/v4.6-core/gl"
 	glfw "github.com/ClaudioTheobaldo/glfw-purego/v3.3/glfw"
 )
 

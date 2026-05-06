@@ -12,7 +12,7 @@
 // functions (glBegin/glEnd, glMatrixMode, glColor*, glNormal*, display lists,
 // etc.) that were removed from the core profile at GL 3.2.  Use this package
 // when maintaining legacy GL 1.x/2.x code on modern hardware.  For new code
-// prefer the core-profile package at github.com/ClaudioTheobaldo/gl-purego/v3.3/gl.
+// prefer the core-profile package at github.com/ClaudioTheobaldo/gl-purego/v3.3-core/gl.
 //
 // # Usage
 //

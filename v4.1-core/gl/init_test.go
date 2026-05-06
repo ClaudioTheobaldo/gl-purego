@@ -7,7 +7,7 @@ import (
 	"testing"
 	"unsafe"
 
-	gl "github.com/ClaudioTheobaldo/gl-purego/v4.1/gl"
+	gl "github.com/ClaudioTheobaldo/gl-purego/v4.1-core/gl"
 )
 
 func TestInitWithProcAddrFunc_NilResolver(t *testing.T) {

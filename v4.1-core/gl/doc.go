@@ -1,12 +1,15 @@
-// Package gl provides CGO-less OpenGL 2.1 bindings for Go.
+// Package gl provides CGO-less OpenGL 4.1 core-profile bindings for Go.
 //
-// This package is a drop-in replacement for github.com/go-gl/gl/v2.1/gl.
+// This package is a drop-in replacement for github.com/go-gl/gl/v4.1-core/gl.
 // It uses github.com/ebitengine/purego for dynamic symbol loading instead
 // of CGO, which means:
 //
 //   - No C compiler required at build time
 //   - Cross-compilation works out of the box (CGO_ENABLED=0)
 //   - Truly static binaries on Linux
+//
+// OpenGL 4.1 is the maximum version supported on macOS, making this the
+// highest portable version for cross-platform desktop applications.
 //
 // # Usage
 //
@@ -17,7 +20,7 @@
 //	    log.Fatal(err)
 //	}
 //
-// The rest of the API is identical to github.com/go-gl/gl/v2.1/gl.
+// The rest of the API is identical to github.com/go-gl/gl/v4.1-core/gl.
 //
 // # Code generation
 //
@@ -26,6 +29,6 @@
 // in cmd/glgen. Do not edit package.go or init.go by hand; run go generate
 // instead.
 //
-//go:generate go run ../../cmd/glgen/ -ver 2.1 -out . -ext
+//go:generate go run ../../cmd/glgen/ -ver 4.1 -out . -ext
 package gl
 

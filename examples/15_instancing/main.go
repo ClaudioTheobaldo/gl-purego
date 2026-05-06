@@ -32,7 +32,7 @@ import (
 	"math"
 	"unsafe"
 
-	gl     "github.com/ClaudioTheobaldo/gl-purego/v3.3/gl"
+	gl     "github.com/ClaudioTheobaldo/gl-purego/v3.3-core/gl"
 	glfw   "github.com/ClaudioTheobaldo/glfw-purego/v3.3/glfw"
 	glutil "github.com/ClaudioTheobaldo/gl-purego/examples/glutil"
 )

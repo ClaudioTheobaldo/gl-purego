@@ -1,6 +1,6 @@
-// Package gl provides CGO-less OpenGL 4.6 compatibility-profile bindings for Go.
+// Package gl provides CGO-less OpenGL 4.1 compatibility-profile bindings for Go.
 //
-// This package is a drop-in replacement for github.com/go-gl/gl/v4.6-compatibility/gl.
+// This package is a drop-in replacement for github.com/go-gl/gl/v4.1-compatibility/gl.
 // It uses github.com/ebitengine/purego for dynamic symbol loading instead
 // of CGO, which means:
 //
@@ -12,7 +12,7 @@
 // functions (glBegin/glEnd, glMatrixMode, glColor*, glNormal*, display lists,
 // etc.) that were removed from the core profile at GL 3.2.  Use this package
 // when maintaining legacy GL 1.x/2.x code on modern hardware.  For new code
-// prefer the core-profile package at github.com/ClaudioTheobaldo/gl-purego/v4.6/gl.
+// prefer the core-profile package at github.com/ClaudioTheobaldo/gl-purego/v4.1-core/gl.
 //
 // # Usage
 //
@@ -30,5 +30,5 @@
 // in cmd/glgen. Do not edit package.go or init.go by hand; run go generate
 // instead.
 //
-//go:generate go run ../../cmd/glgen/ -ver 4.6 -out . -ext -compat
+//go:generate go run ../../cmd/glgen/ -ver 4.1 -out . -ext -compat
 package gl
