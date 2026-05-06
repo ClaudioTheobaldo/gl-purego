@@ -37,8 +37,8 @@ All packages live in the root module (`github.com/ClaudioTheobaldo/gl-purego`).
 
 | Import path | API | Functions | Constants | Notes |
 |-------------|-----|-----------|-----------|-------|
-| `gles2/v3.0/gl` | OpenGL ES 3.0 | 246 | 622 | Mobile / embedded baseline |
-| `gles2/v3.1/gl` | OpenGL ES 3.1 | 314 | 795 | Adds compute shaders, SSBOs |
+| `v3.0/gles2` | OpenGL ES 3.0 | 246 | 622 | Mobile / embedded baseline |
+| `v3.1/gles2` | OpenGL ES 3.1 | 314 | 795 | Adds compute shaders, SSBOs |
 
 > On Windows, GLES requires [ANGLE](https://chromium.googlesource.com/angle/angle)
 > (`libGLESv2.dll` + `libEGL.dll`). On Linux, Mesa or a vendor driver provides

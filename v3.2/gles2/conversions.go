@@ -1,4 +1,4 @@
-package gl
+package gles2
 
 import (
 	"fmt"

@@ -1,6 +1,6 @@
 //go:build windows
 
-package gl
+package gles2
 
 import (
 	"syscall"

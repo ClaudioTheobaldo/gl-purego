@@ -1,6 +1,6 @@
 //go:build darwin
 
-package gl
+package gles2
 
 import (
 	"unsafe"

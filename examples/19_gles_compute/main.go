@@ -23,7 +23,7 @@ import (
 	"strings"
 	"unsafe"
 
-	gl   "github.com/ClaudioTheobaldo/gl-purego/gles2/v3.1/gl"
+	gl   "github.com/ClaudioTheobaldo/gl-purego/v3.1/gles2"
 	glfw "github.com/ClaudioTheobaldo/glfw-purego/v3.3/glfw"
 )
 
@@ -175,7 +175,7 @@ func main() {
 }
 
 // ----------------------------------------------------------------------------
-// Local shader helpers (use gles2/v3.1/gl — not glutil which imports v2.1/gl)
+// Local shader helpers (use v3.1/gles2 — not glutil which imports v2.1/gl)
 // ----------------------------------------------------------------------------
 
 func buildProgram(vertSrc, fragSrc string) uint32 {

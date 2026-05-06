@@ -20,5 +20,5 @@
 // instead.
 //
 //go:generate go run ../../../cmd/glgen/ -api gles2 -ver 3.2 -out . -ext
-package gl
+package gles2
 

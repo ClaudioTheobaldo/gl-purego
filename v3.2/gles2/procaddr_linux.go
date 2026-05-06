@@ -1,6 +1,6 @@
 //go:build linux
 
-package gl
+package gles2
 
 import (
 	"unsafe"

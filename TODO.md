@@ -13,7 +13,7 @@
 
 ## Bigger
 
-- ~~**GLES bindings**~~ ✅ `gles2/v3.0/gl`, `gles2/v3.1/gl`, `gles2/v3.2/gl` — generated via `go run ./cmd/glgen/ -api gles2 -ver X.Y`
+- ~~**GLES bindings**~~ ✅ `v3.0/gles2`, `v3.1/gles2`, `v3.2/gles2` — generated via `go run ./cmd/glgen/ -api gles2 -ver X.Y`
   - Remaining: Android procaddr (`dlopen("libGLESv2.so")` without EGL)
 
 - ~~**EGL backend for glfw-purego (Windows)**~~ ✅ `win_egl_windows.go` + `win_egl_types_windows.go`
