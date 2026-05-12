@@ -1,17 +1,16 @@
 //go:build windows
 
-package gl_test
+package gl
 
 import (
 	"strings"
 	"testing"
 	"unsafe"
 
-	gl "github.com/ClaudioTheobaldo/gl-purego/v3.3-core/gl"
 )
 
 func TestInitWithProcAddrFunc_NilResolver(t *testing.T) {
-	err := gl.InitWithProcAddrFunc(func(string) unsafe.Pointer { return nil })
+	err := InitWithProcAddrFunc(func(string) unsafe.Pointer { return nil })
 	if err == nil {
 		t.Fatal("expected error when all required functions are missing, got nil")
 	}
@@ -27,7 +26,7 @@ func TestInitWithProcAddrFunc_ClearDepthfOptional(t *testing.T) {
 	var sentinel uint8
 	fakeAddr := unsafe.Pointer(&sentinel)
 
-	err := gl.InitWithProcAddrFunc(func(name string) unsafe.Pointer {
+	err := InitWithProcAddrFunc(func(name string) unsafe.Pointer {
 		if name == "glClearDepthf" {
 			return nil // optional in 3.3 — must not cause error
 		}

@@ -1,20 +1,19 @@
 //go:build windows
 
-package gl_test
+package gl
 
 import (
 	"strings"
 	"testing"
 	"unsafe"
 
-	gl "github.com/ClaudioTheobaldo/gl-purego/v2.1/gl"
 )
 
 // TestInitWithProcAddrFunc_NilResolver verifies that InitWithProcAddrFunc
 // returns a non-nil error listing every required GL entry point when the
 // resolver always returns nil (no OpenGL context available).
 func TestInitWithProcAddrFunc_NilResolver(t *testing.T) {
-	err := gl.InitWithProcAddrFunc(func(string) unsafe.Pointer { return nil })
+	err := InitWithProcAddrFunc(func(string) unsafe.Pointer { return nil })
 	if err == nil {
 		t.Fatal("expected error when all required functions are missing, got nil")
 	}
@@ -63,7 +62,7 @@ func TestInitWithProcAddrFunc_OptionalSkipped(t *testing.T) {
 	var sentinel uint8
 	fakeAddr := unsafe.Pointer(&sentinel)
 
-	err := gl.InitWithProcAddrFunc(func(name string) unsafe.Pointer {
+	err := InitWithProcAddrFunc(func(name string) unsafe.Pointer {
 		if optional[name] {
 			return nil // optional → not found, should not cause error
 		}
